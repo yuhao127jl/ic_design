@@ -1,0 +1,69 @@
+Magic 271485
+Revision Verdi3_2012.10
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 47 24 1315 592 172 65
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/jieli/disk4/ic_prj/work_ic/ask_mod/sim/run/ask.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 0.000000 17121064.666487
+cursor 997771000.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 3
+; marker line index
+markerPos 10
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "G1"
+activeDirFile "" "/home/jieli/disk4/ic_prj/work_ic/ask_mod/sim/run/ask.fsdb"
+addSignal -h 15 /ask_mod_tb/ask_mod_inst/clk
+addSignal -h 15 -holdScope rstn
+addSignal -h 15 -holdScope ask_valid_i
+addSignal -h 15 -UNSIGNED -HEX -holdScope ask_din[1:0]
+addSignal -w analog -ds pwc -h 98 -2COMP -HEX -holdScope ask_dout[11:0]
+addSignal -h 15 -holdScope ask_valid_o
+addSignal -h 15 -UNSIGNED -UDEC -holdScope addr[4:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope sine[11:0]
+addSignal -h 15 -holdScope sin_valid
+addSignal -h 15 /BLANK
+addSignal -h 15 /ask_mod_tb/ask_mod_inst/dds/ce
+addSignal -h 15 -holdScope clk
+addSignal -h 15 -UNSIGNED -HEX -holdScope addr[4:0]
+addSignal -w analog -ds pwc -h 98 -2COMP -HEX -holdScope sine[11:0]
+addSignal -h 15 -holdScope sin_valid
+addGroup "G2"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+

@@ -1,0 +1,158 @@
+Chronologic Simulation VCS Release G-2012.09
+Linux 2.6.32-71.el6.i686 #1 SMP Wed Sep 1 01:26:34 EDT 2010 i686
+CPU cores: 1
+Limit information:
+======================================
+cputime			unlimited
+filesize		unlimited
+datasize		unlimited
+stacksize		65536 kbytes
+coredumpsize	0 kbytes
+memoryuse		unlimited
+vmemoryuse		unlimited
+descriptors		1024
+memorylocked	64 kbytes
+maxproc			1024
+======================================
+Runtime environment variables:
+ORBIT_SOCKETDIR=/tmp/orbit-klin
+HOSTNAME=localhost.localdomain
+UNAME=/bin/uname
+IMSETTINGS_INTEGRATE_DESKTOP=yes
+SCRNAME=vcs
+NOVAS_HOME=/eda/verdi/verdi3_2012
+VCS_DEPTH=0
+TERM=xterm
+SHELL=/bin/bash
+XDG_SESSION_COOKIE=59591d45e98debb31f65ea6800000018-1555228311.881693-415224978
+HISTSIZE=1000
+GTK_RC_FILES=/etc/gtk/gtkrc:/home/klin/.gtkrc-1.2-gnome2
+WINDOWID=48235152
+QTDIR=/usr/lib/qt-3.3
+QTINC=/usr/lib/qt-3.3/include
+VERA_HOME=/eda/synopsys/vera
+LC_ALL=C
+IMSETTINGS_MODULE=none
+USER=klin
+LD_LIBRARY_PATH=/eda/synopsys/vcs/2012.09/linux/lib:
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=01;05;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.tbz=01;31:*.tbz2=01;31:*.bz=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=01;36:*.au=01;36:*.flac=01;36:*.mid=01;36:*.midi=01;36:*.mka=01;36:*.mp3=01;36:*.mpc=01;36:*.ogg=01;36:*.ra=01;36:*.wav=01;36:*.axa=01;36:*.oga=01;36:*.spx=01;36:*.xspf=01;36:
+SCRIPT_NAME=vcs
+VCS_MX_HOME_INTERNAL=1
+GNOME_KEYRING_SOCKET=/tmp/keyring-U1ZaeA/socket
+SSH_AUTH_SOCK=/tmp/keyring-U1ZaeA/socket.ssh
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/2386,unix/unix:/tmp/.ICE-unix/2386
+USERNAME=klin
+SNPSLMD_LICENSE_FILE=/eda/synopsys/license/synopsys.dat:/eda/synopsys/vcs/2012.09/flexlm//license.dat
+OVA_UUM=0
+DESKTOP_SESSION=gnome
+MAIL=/var/spool/mail/klin
+PATH=.:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/klin/mentor/questasim/linux:/eda/synopsys/icc/2012.06/bin:/eda/synopsys/pt/2012.06/bin:/eda/synopsys/fm/2012.06/bin:/eda/synopsys/leda/2008.06/bin:/eda/synopsys/vera/2009.12/vera_vD-2009.12-9_linux/bin:/eda/synopsys/syn/2012.06/bin:/eda/verdi/verdi3_2012/bin:/eda/verdi/verdi3_2012/platform/LINUX/bin:/eda/synopsys/vcs/2012.09/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/klin/mentor/questasim/linux:/eda/synopsys/icc/2012.06/bin:/eda/synopsys/pt/2012.06/bin:/eda/synopsys/fm/2012.06/bin:/eda/synopsys/leda/2008.06/bin:/eda/synopsys/vera/2009.12/vera_vD-2009.12-9_linux/bin:/eda/synopsys/syn/2012.06/bin:/eda/verdi/verdi3_2012/bin:/eda/verdi/verdi3_2012/platform/LINUX/bin:/eda/synopsys/vcs/2012.09/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/klin/mentor/questasim/linux:/eda/synopsys/icc/2012.06/bin:/eda/synopsys/pt/2012.06/bin:/eda/synopsys/fm/2012.06/bin:/eda/synopsys/leda/2008.06/bin:/eda/synopsys/vera/2009.12/vera_vD-2009.12-9_linux/bin:/eda/synopsys/syn/2012.06/bin:/eda/verdi/verdi3_2012/bin:/eda/verdi/verdi3_2012/platform/LINUX/bin:/eda/synopsys/vcs/2012.09/bin:/usr/lib/qt-3.3/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/klin/bin
+PT_HOME=/eda/synopsys/pt/2012.06
+QT_IM_MODULE=xim
+VERDI_HOME=/eda/verdi/verdi3_2012
+PWD=/bin/pwd
+VCS_HOME=/eda/synopsys/vcs/2012.09
+XMODIFIERS=@im=none
+FM_HOME=/eda/synopsys/fm/2012.06
+GDM_KEYBOARD_LAYOUT=us
+LANG=en_US.utf8
+KDE_IS_PRELINKED=1
+GNOME_KEYRING_PID=2377
+GDM_LANG=en_US.utf8
+VCS_ARCH_OVERRIDE=linux
+KDEDIRS=/usr
+ICC_HOME=/eda/synopsys/icc/2012.06
+VMR_MODE_FLAG=32
+LM_LICENSE_FILE=/home/klin/mentor/license/mentor.dat:/eda/synopsys/license/synopsys.dat:/license/novas_verdi_lic.txt
+GDMSESSION=gnome
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+HISTCONTROL=ignoredups
+VCS_ARG_ADDED_FOR_TMP=1
+SNPS_VCS_TMPDIR=/tmp/vcs_20190414121210_7580
+HOME=/home/klin
+SHLVL=4
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+LOGNAME=klin
+DC_HOME=/eda/synopsys/syn/2012.06
+QTLIB=/usr/lib/qt-3.3/lib
+CVS_RSH=ssh
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-QvGQ4f95g4,guid=de27bd407fcce63dca19d8a200000050
+LEDA_PATH=/eda/synopsys/leda/2008.06
+LESSOPEN=|/usr/bin/lesspipe.sh %s
+sysc_uni_pwd=/home/klin/work/ask_mod/sim/run
+WINDOWPATH=1
+DISPLAY=unix:0
+VCS_AMD_PURE32=1
+VCS_ARCH=linux
+TOOL_HOME=/eda/synopsys/vcs/2012.09/linux
+G_BROKEN_FILENAMES=1
+XAUTHORITY=/var/run/gdm/auth-for-klin-pxKPWR/database
+COLORTERM=gnome-terminal
+_=./simv
+VCS_PATHMAP_PRELOAD_DONE=1
+DVE=/eda/synopsys/vcs/2012.09/gui/dve
+TCLLIBPATH=/tmp/auxx/tcllib/lib/tcl8.4
+SPECMAN_OUTPUT_TO_TTY=1
+VCS_LCAMSG_PRINT_OFF=1
+Runtime command line arguments:
+argv[0]=simv
+argv[1]=+ntb_random_seed_automatic
+argv[2]=+v2k
+argv[3]=-cm_runsilent
+argv[4]=-cm
+argv[5]=assert
+argv[6]=+neg_tchk
+argv[7]=-lca
+argv[8]=+sdfverbose
+argv[9]=+notimingcheck
+argv[10]=+define+
+109 profile - 100
+          CPU/Mem usage: 0.180 sys,  2.790 user,  187.63M sys,  0.00M vm
+110 VC callback profile - scalar:0 vector:0
+111 Sun Apr 14 20:12:25 2019
+112 pliAppInit
+113 *Novas* : Enable Parallel Dumping.
+114 pliAppMiscSet: New Sim Round
+115 LIBSSCORE=found /eda/verdi/verdi3_2012/share/PLI/lib/LINUX/libsscore_vcs201209.so through $NOVAS_HOME setting.
+116 argv[0]: ask.fsdb
+117 Novas FSDB Dumper for VCS, Release Verdi3_2012.10, Linux, 10/23/2012
+118 Copyright (C) 1996 - 2012 by SpringSoft, Inc.
+119 sps_call_fsdbDumpfile at 0 : ../../bench/top.v(63)
+120 argv[0]: ask.fsdb
+121 *Novas* FSDB WARNING: The FSDB file already exists.Overwriting the FSDB file may crash the programs that are using this file.
+122 *Novas* : Create FSDB file 'ask.fsdb'
+123 sps_call_fsdbDumpvars at 0 : ../../bench/top.v(64)
+124 *Novas* : Begin traversing the scopes, layer (0).
+125 *Novas* : End of traversing.
+126 fsdbDumpvars traverse var: profile - 
+          CPU/Mem usage: 0.210 sys,  2.790 user,  328.09M sys,  0.00M vm
+                   incr: 0.010 sys,  0.000 user,  3.00M sys,  0.00M vm
+                   accu: 0.010 sys,  0.000 user,  3.00M sys,  0.00M vm
+              accu incr: 0.010 sys,  0.000 user,  3.00M sys,  0.00M vm
+
+          Count usage: 23 var,  17 idcode,  17 callback
+                 incr: 23 var,  17 idcode,  17 callback
+                 accu: 23 var,  17 idcode,  17 callback
+            accu incr: 23 var,  17 idcode,  17 callback
+127 VC callback profile - scalar:0 vector:0
+128 Sun Apr 14 20:12:25 2019
+129 fsdbDumpvars: profile - 
+          CPU/Mem usage: 0.210 sys,  2.790 user,  329.14M sys,  0.00M vm
+                   incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
+                   accu: 0.010 sys,  0.000 user,  4.06M sys,  0.00M vm
+              accu incr: 0.000 sys,  0.000 user,  1.05M sys,  0.00M vm
+
+          Count usage: 23 var,  17 idcode,  17 callback
+                 incr: 0 var,  0 idcode,  0 callback
+                 accu: 23 var,  17 idcode,  17 callback
+            accu incr: 0 var,  0 idcode,  0 callback
+130 VC callback profile - scalar:12 vector:11
+131 Sun Apr 14 20:12:25 2019
+132 End of simulation at 694940190000
+133 VC callback profile - scalar:138988060 vector:167992
+134 Sun Apr 14 20:13:49 2019
+135 Parallel profile    -  Flush:5 ProduceWait:1 ConsumerWait:867 BlockUsed:1129
+136 Begin pliApp_JoinConsumer
+137 End pliApp_JoinConsumer
+138 SimExit
+139 Sim process exit
