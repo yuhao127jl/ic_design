@@ -140,6 +140,19 @@ begin
 	$stop;
 end
 
+initial
+begin
+  force tb_timer.uut.frqdiv_ss = 1'b0;
+  force tb_timer.uut.tmr_cnt[15:0] = 16'd0;
+  force tb_timer.uut.tmr_prd[15:0] = 16'd0;
+  force tb_timer.uut.icsrc_ss = 1'b0;
+  #2;
+  release tb_timer.uut.frqdiv_ss;
+  release tb_timer.uut.tmr_cnt[15:0];
+  release tb_timer.uut.tmr_prd[15:0];
+  release tb_timer.uut.icsrc_ss;
+end
+
 
 //**********************************
 // task for reg config
