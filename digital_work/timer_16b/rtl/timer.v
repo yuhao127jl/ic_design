@@ -217,7 +217,7 @@ else
 always @(posedge tmr_clk)
   begin
     frqdiv_ss <= #1 frqdiv_s;
-    icsrc_ss  <= #1 icsrc;
+    icsrc_ss  <= #1 icsrc_s;
     tmr_cnt <= #1 tmr_cnt_in;
     tmr_prd  <= #1 tmr_prd_in;
   end
