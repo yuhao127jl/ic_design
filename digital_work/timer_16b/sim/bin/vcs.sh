@@ -69,5 +69,5 @@ vcs \
 	-timescale=1ns/1ps \
 	-debug_all \
 	-f $file_list \
-#	-l vcs.log
+	-l vcs.log
 
