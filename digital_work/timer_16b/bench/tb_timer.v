@@ -53,9 +53,6 @@ parameter   CLK16M_PERIOD = 62.5;
 parameter   CLK24M_PERIOD = 41.667;
 parameter   CLK12M_PERIOD = 83.333;
 
-integer			j,i;
-integer			results_file;	// for writing signal values
-
 // Instantiate the UUT module:
 timer	uut	(
 			.tmr_cnt_wr (tmr_cnt_wr),
@@ -117,10 +114,10 @@ begin
 	tmr_prd_wr = 0;
 	icb_wdat = 0;
 	icsrc = 0;
-	sys_rstn = 1;
+	sys_rstn = 0;
 
   // reset the block	
-  #300 sys_rstn = 0;
+  #300 sys_rstn = 1;
 
 	// Add more test bench stuff here
   tmr_cnt_config(1, 16'h00);
@@ -130,27 +127,15 @@ begin
   tmr_con_config(1, 16'h01);
   #(2*CLK_PERIOD);
 	
-  while(tmr_int==1)
+  // wait for interrupt
+  wait(tmr_int==1)
     begin
-      tmr_con_config(1, 16'h00);
+      tmr_con_config(1, 16'h400);// clr pnding
     end
   
   #(10*CLK_PERIOD);
 	
 	$stop;
-end
-
-initial
-begin
-  force tb_timer.uut.frqdiv_ss = 1'b0;
-  force tb_timer.uut.tmr_cnt[15:0] = 16'd0;
-  force tb_timer.uut.tmr_prd[15:0] = 16'd0;
-  force tb_timer.uut.icsrc_ss = 1'b0;
-  #2;
-  release tb_timer.uut.frqdiv_ss;
-  release tb_timer.uut.tmr_cnt[15:0];
-  release tb_timer.uut.tmr_prd[15:0];
-  release tb_timer.uut.icsrc_ss;
 end
 
 
@@ -160,32 +145,42 @@ end
 task tmr_cnt_config(input tmrcnt_wr, input [15:0] bus_wdat);
 begin
   @(posedge sys_clk);
+  #1; 
   tmr_cnt_wr = tmrcnt_wr;
   icb_wdat = bus_wdat;
   @(posedge sys_clk);
+  #1; 
   tmr_cnt_wr = 1'b0;
+  icb_wdat = bus_wdat;
 end
 endtask
 
 task tmr_con_config(input tmrcon_wr, input [15:0] bus_wdat);
 begin
   @(posedge sys_clk);
+  #1; 
   tmr_con_wr = tmrcon_wr;
   icb_wdat = bus_wdat;
   @(posedge sys_clk);
+  #1; 
   tmr_con_wr = 1'b0;
+  icb_wdat = bus_wdat;
 end
 endtask
 
 task tmr_prd_config(input tmrprd_wr, input [15:0] bus_wdat);
 begin
   @(posedge sys_clk);
+  #1; 
   tmr_prd_wr = tmrprd_wr;
   icb_wdat = bus_wdat;
   @(posedge sys_clk);
+  #1;
   tmr_prd_wr = 1'b0;
+  icb_wdat = bus_wdat;
 end
 endtask
+
 
 //**********************************
 // DUMP Wave

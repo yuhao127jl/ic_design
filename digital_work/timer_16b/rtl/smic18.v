@@ -30,15 +30,15 @@ assign ENABLE_NOT_E = (!E) ? 1'b1 : 1'b0;
   specify
     if(E===1'b1 || TE===1'b1)
     // arc CK --> Q
-      (CK => Q) = (0.1, 0,1);
+      (CK => Q) = (0, 0);
 
     ifnone
     // arc CK --> Q
-      (CK => Q) = (0.1, 0,1);
+      (CK => Q) = (0, 0);
 
     if(E===1'b0 && TE===1'b0)
     // arc CK --> Q
-      (CK => Q) = (0.1, 0,1);
+      (CK => Q) = (0, 0);
 
     $width(negedge CK, 0.1, 0, NOTIFIER);
 
