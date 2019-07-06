@@ -8,7 +8,7 @@
 	(2) UART  
 	(3) SPI  
 	(4) I2C  
-	(5)   
+	(5) watchdog   
 
 2. Digital IC design  
 	(1) Digital Modem  
