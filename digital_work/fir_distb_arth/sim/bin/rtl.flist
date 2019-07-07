@@ -1,0 +1,19 @@
+//********************************************
+//
+// project file
+//
+//********************************************
+
++incdir+../../rtl/
++incdir+../../bench/
+
+../../rtl/fir_distb_top.v
+../../rtl/distb_table.v
+
+../../bench/tb_fir_distb_top.v
+
+
+
+
+
+
