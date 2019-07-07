@@ -58,6 +58,7 @@ wire uart_txpnd_clr = uart_con_wr & icb_wdat[10];
 wire uart_rxpnd_clr = uart_con_wr & icb_wdat[11];
 
 wire [15:0] uart_baud_in = uart_baud_wr ? icb_wdat[15:0] : uart_baud;
+
 wire [7:0] txbuf_in = uart_txbuf_wr ? icb_wdat[7:0] : txbuf;
 
 
@@ -82,17 +83,14 @@ CLKLANQHDV4 clock_gate2(.Q(icb_clk), .CK(sys_clk), .E(icb_en), .TE(1'b0));
 
 //-------------------------------------------------------------
 //
-// reg
+// reg and wire
 //
 //-------------------------------------------------------------
 reg baud_clk_div2;
 reg baud_clk_div2_dly1;
 reg baud_clk_div2_dly2;
 reg baud_clk_div2_dly3;
-wire      clksrc;
-wire      frqdiv;
-reg       frqdiv_ss;
-reg       icsrc_ss;
+wire baud_edge;
 
 
 //-------------------------------------------------------------
@@ -117,6 +115,7 @@ begin
   baud_clk_div2_dly3 <= #1 baud_clk_div2_dly2;
 end
 
+assign baud_edge = baud_clk_div2_dly2 ^ baud_clk_div2_dly3;
 
 
 
@@ -201,6 +200,7 @@ else
 
 always @(posedge uart_clk)
   begin
+  
     frqdiv_ss <= #1 frqdiv_s;
     icsrc_ss  <= #1 icsrc_s;
     tmr_cnt <= #1 tmr_cnt_in;
