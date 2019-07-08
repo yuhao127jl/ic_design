@@ -126,13 +126,14 @@ assign baud_edge = baud_clk_div2_dly2 ^ baud_clk_div2_dly3;
 //
 //-------------------------------------------------------------
 wire uart_baud_mch = (uart_baud == uart_baud_cnt);
-wire [15:0] uart_baud_cnt_in = T1 ? uart_baud_cnt + baud_edge :
-                               T2 ? 16'd0 : uart_baud_cnt;
+wire [15:0] uart_baud_cnt_in = !(uart_txbuf_wr & (tx_state==5'd0)) ? uart_baud_cnt + baud_edge :
+                               (uart_txbuf_wr & (tx_state==5'd0)) ? 16'd0 : uart_baud_cnt;
 wire uart_div_mch = (uart_div_cnt == (uart_div_sel ? 3'd2 : 3'd3));
 wire [2:0] uart_div_cnt_in =  T1 ? uart_div_cnt + uart_baud_mch :
                               T2 ? 3'd0 : uart_div_cnt;
 
 wire uart_txbit_mch = uart_div_mch & baud_edge;
+
 
 wire [4:0] tx_state_in = ~uart_en ? 5'd0 : tx_state;
 
@@ -147,12 +148,19 @@ begin
 
     5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9:
       begin
-        if(uart_txbit_mch) tx_state <= tx_state + 5'd1;
+        tx_state <= tx_state + uart_txbit_mch;
       end
     
     5'd10:
+    begin
+    	if(
+    end
     5'd11:
+
+
     5'd12:
+
+
 
     default: 
   
@@ -162,23 +170,21 @@ end
 
 always @(*)
 begin
-  case()
-    5'd0: 
-      begin
-        if(uart_txbuf_wr) tx_state <= #1 5'd1;
-        else              tx_state <= #1 5'd0;
-      end
-
-    5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9:
-      begin
-        if(uart_txbit_mch) tx_state <= tx_state + 5'd1;
-      end
+  case(tx_state)
+    5'd2: uart_tx = txbuf[0];
+    5'd3: uart_tx = txbuf[1]; 
+    5'd4: uart_tx = txbuf[2];
+    5'd5: uart_tx = txbuf[3];
+    5'd6: uart_tx = txbuf[4];
+    5'd7: uart_tx = txbuf[5];
+    5'd8: uart_tx = txbuf[6];
+    5'd9: uart_tx = txbuf[7];
     
     5'd10:
     5'd11:
     5'd12:
 
-    default: 
+    default: uart_tx = 1'b1;
   
   endcase
 
