@@ -4,16 +4,18 @@
   
 ## Content
 1. Basic IC Design  
-	(1) Timer   
-	(2) UART  
-	(3) SPI  
-	(4) I2C  
-	(5) watchdog   
+	(1) Multiply
+	(2) Timer   
+	(3) UART  
+	(4) SPI  
+	(5) I2C  
+	(6) Watchdog   
 
 2. Digital IC design  
 	(1) Digital Modem  
 		ASK,    
 	(2) Digital Filter  
+		Distributed Arith Filter,
 	(3) Digital Communication Synchronization   
 	(4) Channel Coding and Decoding  
   
