@@ -4,7 +4,7 @@
   
 ## Content
 1. Basic IC Design  
-	(1) Multiply
+	(1) Multiply  
 	(2) Timer   
 	(3) UART  
 	(4) SPI  
@@ -14,8 +14,8 @@
 2. Digital IC design  
 	(1) Digital Modem  
 		ASK,    
-	(2) Digital Filter  
-		Distributed Arith Filter,
+	(2) Digital Filter   
+		Distributed Arith Filter,  
 	(3) Digital Communication Synchronization   
 	(4) Channel Coding and Decoding  
   
