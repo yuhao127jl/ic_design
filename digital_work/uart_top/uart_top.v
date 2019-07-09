@@ -126,14 +126,14 @@ assign baud_edge = baud_clk_div2_dly2 ^ baud_clk_div2_dly3;
 //
 //-------------------------------------------------------------
 wire uart_baud_mch = (uart_baud == uart_baud_cnt);
-wire [15:0] uart_baud_cnt_in = !(uart_txbuf_wr & (tx_state==5'd0)) ? uart_baud_cnt + baud_edge :
-                               (uart_txbuf_wr & (tx_state==5'd0)) ? 16'd0 : uart_baud_cnt;
+wire [15:0] uart_baud_cnt_in = uart_en & !(uart_txbuf_wr || (tx_state==5'd0)) ? uart_baud_cnt + baud_edge :
+                               (uart_txbuf_wr || (tx_state==5'd0)) ? 16'd0 : uart_baud_cnt;
+
 wire uart_div_mch = (uart_div_cnt == (uart_div_sel ? 3'd2 : 3'd3));
-wire [2:0] uart_div_cnt_in =  T1 ? uart_div_cnt + uart_baud_mch :
-                              T2 ? 3'd0 : uart_div_cnt;
+wire [2:0] uart_div_cnt_in =  !(uart_div_mch || (tx_state==5'd0)) ? uart_div_cnt + uart_baud_mch :
+                              uart_div_mch ? 3'd0 : uart_div_cnt;
 
 wire uart_txbit_mch = uart_div_mch & baud_edge;
-
 
 wire [4:0] tx_state_in = ~uart_en ? 5'd0 : tx_state;
 
@@ -142,52 +142,38 @@ begin
   case(tx_state)
     5'd0: 
       begin
-        if(uart_txbuf_wr) tx_state <= #1 5'd1;
-        else              tx_state <= #1 5'd0;
+        if(uart_txbuf_wr) tx_state = 5'd1;
+        else              tx_state = 5'd0;
       end
-
     5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9:
-      begin
-        tx_state <= tx_state + uart_txbit_mch;
-      end
-    
+        tx_state = tx_state + uart_txbit_mch;
     5'd10:
-    begin
-    	if(
-    end
+    	tx_state = uart_prty_en ? tx_state + uart_txbit_mch : 5'd12;
     5'd11:
-
-
+        tx_state = tx_state + uart_txbit_mch;
     5'd12:
-
-
-
-    default: 
-  
+    	tx_state = 5'd0;
+    default: tx_state = 5'd0;
   endcase
-
 end
+
 
 always @(*)
 begin
   case(tx_state)
-    5'd2: uart_tx = txbuf[0];
-    5'd3: uart_tx = txbuf[1]; 
-    5'd4: uart_tx = txbuf[2];
-    5'd5: uart_tx = txbuf[3];
-    5'd6: uart_tx = txbuf[4];
-    5'd7: uart_tx = txbuf[5];
-    5'd8: uart_tx = txbuf[6];
-    5'd9: uart_tx = txbuf[7];
-    
-    5'd10:
-    5'd11:
-    5'd12:
-
+    5'd2: uart_tx = 1'b0;
+    5'd3: uart_tx = txbuf[0];
+    5'd4: uart_tx = txbuf[1]; 
+    5'd5: uart_tx = txbuf[2];
+    5'd6: uart_tx = txbuf[3];
+    5'd7: uart_tx = txbuf[4];
+    5'd8: uart_tx = txbuf[5];
+    5'd9: uart_tx = txbuf[6];
+    5'd10: uart_tx = txbuf[7];
+    5'd11: uart_tx = uart_prty_en ? uart_prty_9bit : 1'b1;
+    5'd12: uart_tx = 1'b1;
     default: uart_tx = 1'b1;
-  
   endcase
-
 end
 
 
@@ -206,40 +192,31 @@ wire uart_rx_start = uart_rx_dly & ~uart_rx; // negedge edge
 
 //-------------------------------------------------------------
 //
-// input clk select
+// 
 //
 //-------------------------------------------------------------
-MUX4HD1X muxsrc(
-  .Z(clksrc), 
-  .A(clkisrc1), 
-  .B(clkisrc2), 
-  .C(clkisrc3), 
-  .D(clkisrc4), 
-  .S0(tmr_ssel[0]), 
-  .S1(tmr_ssel[1]));
 
 
-//-------------------------------------------------------------
-//
-// timer
-//
-//-------------------------------------------------------------
-assign tmr_pnd_suspd = prd_mch | capt_edge;
-assign tmr_ovf = prd_mch; 
 
 
 
 //-------------------------------------------------------------
 //
-// capture posedge or negedge
+// 
 //
 //-------------------------------------------------------------
-// different clock source, so sync proc
-sync  sync02(.din(icsrc), .clk(tmr_clk), .dout(icsrc_s));
-assign capt_edge = tmr_mode[1] & ( tmr_mode[0] ? (~icsrc_s & icsrc_ss) : (icsrc_s & ~icsrc_ss));
-wire [15:0]tmr_prd_in = tmr_prd_wr ? icb_wdat[15:0] : 
-                        capt_edge ? tmr_cnt :
-                        tmr_prd;
+
+
+
+//-------------------------------------------------------------
+//
+// 
+//
+//-------------------------------------------------------------
+
+
+
+
 
 //-------------------------------------------------------------
 //
@@ -260,15 +237,9 @@ wire uart_pnd_in = uart_pnd_set | uart_pnd & ~uart_pnd_clr;
 always @(posedge icb_clk or negedge sys_rstn)
 if(!sys_rstn)
   begin
-    tmr_mode <= #1 2'd0;
-    tmr_ssel <= #1 2'd0;
-    tmr_dsel <= #1 4'd0;
   end
 else
   begin
-    tmr_mode <= #1 tmr_mode_in;
-    tmr_ssel <= #1 tmr_ssel_in;
-    tmr_dsel <= #1 tmr_dsel_in;
   end
 
 
