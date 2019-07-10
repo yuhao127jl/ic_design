@@ -17,7 +17,7 @@ output [15:0]     uart_con,
 output reg[15:0]  uart_baud,
 output reg[15:0]  uart_txbuf,
 
-output            uart_tx,
+output reg        uart_tx,
 output            uart_rx,
 output reg        uart_en,
 output            uart_int,
@@ -39,11 +39,16 @@ reg uart_prty_9bit;
 reg uart_div_sel;
 
 reg [7:0]txbuf;
+reg [15:0]uart_baud_cnt;
+reg [2:0] uart_div_cnt;
+reg uart_rx_dly;
 
 wire    icb_clk;
 wire    uart_clk;
 wire    uart_pnd_set;
 reg     uart_pnd;
+reg     uart_txpnd;
+reg     uart_rxpnd;
 
 reg baud_clk_div2;
 reg baud_clk_div2_dly1;
@@ -77,6 +82,7 @@ wire [7:0] txbuf_in = uart_txbuf_wr ? icb_wdat[7:0] : txbuf;
 
 
 assign  uart_con = {uart_pnd, 5'd0, uart_prty_9bit, 5'd0, uart_prty_en, uart_rxie, uart_txie, uart_en};
+assign uart_txbuf = {8'd0, txbuf};
 
 assign uart_int = uart_pnd;
 
@@ -176,6 +182,10 @@ begin
   endcase
 end
 
+assign uart_txpnd_set = (uart_txpnd & uart_txie) | (uart_rxpnd & uart_rxie);
+assign uart_txpnd_clr = uart_txpnd_clr | uart_txbuf_wr;
+wire uart_txpnd_in = uart_txpnd_set | uart_txpnd & ~uart_txpnd_clr;
+
 
 //-------------------------------------------------------------
 //
@@ -223,24 +233,26 @@ wire uart_rx_start = uart_rx_dly & ~uart_rx; // negedge edge
 // uart pending 
 //
 //-------------------------------------------------------------
-assign uart_txpnd =    ;
-assign uart_rxpnd =    ;
-assign uart_pnd_set = (uart_txpnd & uart_txie) | (uart_rxpnd & uart_rxie);
-assign uart_pnd_clr = uart_pnd_clr | uart_txbuf_wr;
-wire uart_pnd_in = uart_pnd_set | uart_pnd & ~uart_pnd_clr;
+//assign uart_txpnd =    ;
+//assign uart_rxpnd =    ;
+//assign uart_pnd_set = (uart_txpnd & uart_txie) | (uart_rxpnd & uart_rxie);
+//assign uart_pnd_clr = uart_pnd_clr | uart_txbuf_wr;
+wire uart_pnd_in;
+assign uart_int = (uart_txpnd & uart_txie) | (uart_txpnd & uart_txie);
+
 
 //-------------------------------------------------------------
 //
 // always
 //
 //-------------------------------------------------------------
-always @(posedge icb_clk or negedge sys_rstn)
-if(!sys_rstn)
-  begin
-  end
-else
-  begin
-  end
+//always @(posedge icb_clk or negedge sys_rstn)
+//if(!sys_rstn)
+//  begin
+//  end
+//else
+//  begin
+//  end
 
 
 always @(posedge uart_clk or negedge sys_rstn)
@@ -253,7 +265,7 @@ if(!sys_rstn)
   end
 else
   begin
-    uart_pnd        <= #1 tmr_pnd_in;
+    uart_pnd        <= #1 uart_pnd_in;
     uart_baud_cnt   <= #1 uart_baud_cnt_in;
     tx_state        <= #1 tx_state_in;
     uart_rx_dly     <= #1 uart_rx;
