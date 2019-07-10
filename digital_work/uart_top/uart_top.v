@@ -246,13 +246,30 @@ assign uart_int = (uart_txpnd & uart_txie) | (uart_txpnd & uart_txie);
 // always
 //
 //-------------------------------------------------------------
-//always @(posedge icb_clk or negedge sys_rstn)
-//if(!sys_rstn)
-//  begin
-//  end
-//else
-//  begin
-//  end
+always @(posedge icb_clk or negedge sys_rstn)
+if(!sys_rstn)
+  begin
+    uart_en         <= #1 1'b0;
+    uart_txie       <= #1 1'b0;
+    uart_rxie       <= #1 1'b0;
+    uart_prty_en    <= #1 1'b0;
+    uart_div_sel    <= #1 1'b0;
+    uart_prty_9bit  <= #1 1'b0;
+    txbuf           <= #1 8'd0;
+    uart_baud       <= #1 16'd0;
+  end
+else
+  begin
+    uart_en         <= #1 uart_en_in;
+    uart_txie       <= #1 uart_txie_in;
+    uart_rxie       <= #1 uart_txie_in;
+    uart_prty_en    <= #1 uart_prty_en_in;
+    uart_div_sel    <= #1 uart_div_sel_in;
+    uart_prty_9bit  <= #1 uart_prty_9bit_in;
+    txbuf           <= #1 txbuf_in;
+    uart_baud       <= #1 uart_baud_in;
+  end
+
 
 
 always @(posedge uart_clk or negedge sys_rstn)
@@ -272,12 +289,10 @@ else
   end
 
 
-always @(posedge uart_clk)
-  begin
-    uart_baud   <= #1 uart_baud_in;
-    txbuf       <= #1 txbuf_in;
-  
-  end
+//always @(posedge uart_clk)
+//  begin
+//  
+//  end
 
 
 endmodule

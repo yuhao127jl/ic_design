@@ -103,6 +103,7 @@ initial begin
   #(30*CLK50M_PERIOD) sys_rstn = 1;
   $display("System reset now ...... \n");
 	
+  #(50*CLK50M_PERIOD);
 	// Add more test bench stuff here
   uart_baud_config(1, 16'h3);
   uart_con_config(1, 16'h1);
