@@ -26,7 +26,7 @@
 ******************************************************************/
 `timescale	1ns/1ps
 
-`define BIT(n)    (1<<n)
+//`define BIT(n)    (1<<n)
 
 
 module tb_uart_top (); 
@@ -51,6 +51,7 @@ wire	uart_int;
 
 // *** Local Integer Declarations ***
 parameter   CLK50M_PERIOD = 20;
+parameter   CLK48M_PERIOD = 20.833;
 parameter   CLK24M_PERIOD = 41.667;
 parameter   CLK16M_PERIOD = 62.5;
 parameter   CLK12M_PERIOD = 83.333;
@@ -81,7 +82,7 @@ uart_top	uut	(
 // Generate clock:
 initial begin
   sys_clk = 0;
-  forever #(CLK50M_PERIOD/2) sys_clk = ~sys_clk;
+  forever #(CLK48M_PERIOD/2) sys_clk = ~sys_clk;
 end
 
 initial begin
@@ -100,26 +101,26 @@ initial begin
 	sys_rstn = 0;
 
   // reset system
-  #(30*CLK50M_PERIOD) sys_rstn = 1;
+  #(30*CLK48M_PERIOD) sys_rstn = 1;
   $display("System reset now ...... \n");
 	
   #(50*CLK50M_PERIOD);
 	// Add more test bench stuff here
   uart_baud_config(1, 16'h3);
   uart_con_config(1, 16'h1);
-  uart_txbuf_config(1, 16'h7);
-
+  #(10*CLK48M_PERIOD);
+  uart_txbuf_config(1, 16'h3a);
   $display("First Tx config ......  \n");
-
 
 	
   //#(100*CLK50M_PERIOD);
   //uart_baud_config(1, 16'h6);
   //uart_con_config(1, 16'h1);
   //uart_txbuf_config(1, 16'h73);
+  //$display("Second Tx config ......  \n");
 	
   #1000;
-	$stop;
+  $stop;
 end
 
 
@@ -129,14 +130,13 @@ end
 task uart_con_config(input uartcon_wr, input [15:0] bus_wdat);
 begin
   @(posedge sys_clk);
-  $display("A\n");
   #1; 
   uart_con_wr = uartcon_wr;
   icb_wdat = bus_wdat;
   @(posedge sys_clk);
-  $display("B\n");
   #1; 
   uart_con_wr = 1'b0;
+  @(posedge sys_clk);
   icb_wdat = bus_wdat;
 end
 endtask
@@ -144,14 +144,13 @@ endtask
 task uart_baud_config(input uartbaud_wr, input [15:0] bus_wdat);
 begin
   @(posedge sys_clk);
-  $display("C\n");
   #1; 
   uart_baud_wr = uartbaud_wr;
   icb_wdat = bus_wdat;
   @(posedge sys_clk);
   #1; 
-  $display("D\n");
   uart_baud_wr = 1'b0;
+  @(posedge sys_clk);
   icb_wdat = bus_wdat;
 end
 endtask
@@ -160,16 +159,12 @@ task uart_txbuf_config(input uarttxbuf_wr, input [15:0] bus_wdat);
 begin
   @(posedge sys_clk);
   #1;
-  $display("E\n");
   uart_txbuf_wr = uarttxbuf_wr;
-  $display("gE\n");
-  icb_wdat[7:0] = bus_wdat[7:0];
-  $display("kE\n");
-#20;
-  $display("jE\n");
+  icb_wdat[15:0] = bus_wdat[15:0];
+  @(posedge sys_clk);
   #1;
-  $display("F\n");
   uart_txbuf_wr = 1'b0;
+  @(posedge sys_clk);
 end
 endtask
 

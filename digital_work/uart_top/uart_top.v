@@ -15,7 +15,7 @@ input [15:0]      icb_wdat,
 
 output [15:0]     uart_con,
 output reg[15:0]  uart_baud,
-output reg[15:0]  uart_txbuf,
+output [15:0]     uart_txbuf,
 
 output reg        uart_tx,
 output            uart_rx,
@@ -77,7 +77,7 @@ wire uart_rxpnd_clr = uart_con_wr & icb_wdat[11];
 
 wire [15:0] uart_baud_in = uart_baud_wr ? icb_wdat[15:0] : uart_baud;
 
-wire [7:0] txbuf_in = uart_txbuf_wr ? icb_wdat[7:0] : txbuf;
+wire [15:0] txbuf_in = uart_txbuf_wr ? icb_wdat[7:0] : txbuf;
 
 
 
@@ -131,35 +131,34 @@ assign baud_edge = baud_clk_div2_dly2 ^ baud_clk_div2_dly3;
 // uart TX
 //
 //-------------------------------------------------------------
-wire uart_baud_mch = (uart_baud == uart_baud_cnt);
+wire uart_baud_mch = (uart_baud == uart_baud_cnt) & baud_edge;
 wire [15:0] uart_baud_cnt_in = uart_en & !(uart_txbuf_wr || (tx_state==5'd0)) ? uart_baud_cnt + baud_edge :
-                               (uart_txbuf_wr || (tx_state==5'd0)) ? 16'd0 : uart_baud_cnt;
+                              uart_baud_mch || (uart_txbuf_wr || (tx_state==5'd0)) ? 16'd0 : uart_baud_cnt;
 
 wire uart_div_mch = (uart_div_cnt == (uart_div_sel ? 3'd2 : 3'd3));
-wire [2:0] uart_div_cnt_in =  !(uart_div_mch || (tx_state==5'd0)) ? uart_div_cnt + uart_baud_mch :
-                              uart_div_mch ? 3'd0 : uart_div_cnt;
+wire [2:0] uart_div_cnt_in =  (uart_div_mch || (tx_state==5'd0)) ? 3'd0 : uart_div_cnt + uart_baud_mch;
 
 wire uart_txbit_mch = uart_div_mch & baud_edge;
 
-wire [4:0] tx_state_in = ~uart_en ? 5'd0 : tx_state;
+
+wire [4:0] tx_state_in = ~uart_en ? 5'd0 : send_state;
 
 always @(*)
 begin
   case(tx_state)
     5'd0: 
       begin
-        if(uart_txbuf_wr) tx_state = 5'd1;
-        else              tx_state = 5'd0;
+        if(uart_txbuf_wr) send_state = 5'd1;
       end
     5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9:
-        tx_state = tx_state + uart_txbit_mch;
+        send_state = tx_state + uart_txbit_mch;
     5'd10:
-    	tx_state = uart_prty_en ? tx_state + uart_txbit_mch : 5'd12;
+        send_state = uart_prty_en ? tx_state + uart_txbit_mch : 5'd12;
     5'd11:
-        tx_state = tx_state + uart_txbit_mch;
+        send_state = tx_state + uart_txbit_mch;
     5'd12:
-    	tx_state = 5'd0;
-    default: tx_state = 5'd0;
+        send_state = 5'd0;
+    default: send_state = 5'd0;
   endcase
 end
 
@@ -277,6 +276,7 @@ if(!sys_rstn)
   begin
     uart_pnd        <= #1 1'b0;
     uart_baud_cnt   <= #1 16'd0;
+    uart_div_cnt    <= #1 3'd0;
     tx_state        <= #1 5'd0;
     uart_rx_dly     <= #1 1'b0;
   end
@@ -284,6 +284,7 @@ else
   begin
     uart_pnd        <= #1 uart_pnd_in;
     uart_baud_cnt   <= #1 uart_baud_cnt_in;
+    uart_div_cnt    <= #1 uart_div_cnt_in;
     tx_state        <= #1 tx_state_in;
     uart_rx_dly     <= #1 uart_rx;
   end
