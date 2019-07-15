@@ -132,10 +132,11 @@ assign baud_edge = baud_clk_div2_dly2 ^ baud_clk_div2_dly3;
 //
 //-------------------------------------------------------------
 wire uart_baud_mch = (uart_baud == uart_baud_cnt) & baud_edge;
-wire [15:0] uart_baud_cnt_in = uart_en & !(uart_txbuf_wr || (tx_state==5'd0)) ? uart_baud_cnt + baud_edge :
-                              uart_baud_mch || (uart_txbuf_wr || (tx_state==5'd0)) ? 16'd0 : uart_baud_cnt;
+wire [15:0] uart_baud_cnt_in = uart_baud_mch || (uart_txbuf_wr || (tx_state==5'd0)) ? 16'd0 : 
+                              uart_en & !(uart_txbuf_wr || (tx_state==5'd0)) ? uart_baud_cnt + baud_edge : uart_baud_cnt;
 
-wire uart_div_mch = (uart_div_cnt == (uart_div_sel ? 3'd2 : 3'd3));
+
+wire uart_div_mch = (uart_div_cnt == (uart_div_sel ? 3'd2 : 3'd3)) & uart_baud_mch;
 wire [2:0] uart_div_cnt_in =  (uart_div_mch || (tx_state==5'd0)) ? 3'd0 : uart_div_cnt + uart_baud_mch;
 
 wire uart_txbit_mch = uart_div_mch & baud_edge;
@@ -150,14 +151,14 @@ begin
       begin
         if(uart_txbuf_wr) send_state = 5'd1;
       end
-    5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9:
+    5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9, 5'd10:
         send_state = tx_state + uart_txbit_mch;
-    5'd10:
-        send_state = uart_prty_en ? tx_state + uart_txbit_mch : 5'd12;
     5'd11:
-        send_state = tx_state + uart_txbit_mch;
+        send_state = uart_prty_en ? tx_state + uart_txbit_mch : 5'd13;
     5'd12:
-        send_state = 5'd0;
+        send_state = tx_state + uart_txbit_mch;
+    5'd13:
+        send_state = uart_txbit_mch ? 5'd0 : tx_state;
     default: send_state = 5'd0;
   endcase
 end

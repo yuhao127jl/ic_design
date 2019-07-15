@@ -26,7 +26,12 @@
 ******************************************************************/
 `timescale	1ns/1ps
 
-//`define BIT(n)    (1<<n)
+`define BIT(n)    (1<<n)
+
+`define UART_DIV_SEL 3
+`ifdef UART_DIV_SEL
+  `define UART_DIV_EN (1<<4)
+`endif
 
 
 module tb_uart_top (); 
@@ -56,6 +61,7 @@ parameter   CLK24M_PERIOD = 41.667;
 parameter   CLK16M_PERIOD = 62.5;
 parameter   CLK12M_PERIOD = 83.333;
 
+parameter   BAUD_RATE = 4;
 
 // *** Local Integer Declarations ***
 integer			j,i;
@@ -104,23 +110,23 @@ initial begin
   #(30*CLK48M_PERIOD) sys_rstn = 1;
   $display("System reset now ...... \n");
 	
-  #(50*CLK50M_PERIOD);
+  #(50*CLK48M_PERIOD);
 	// Add more test bench stuff here
-  uart_baud_config(1, 16'h3);
-  uart_con_config(1, 16'h1);
-  #(10*CLK48M_PERIOD);
-  uart_txbuf_config(1, 16'h3a);
+  uart_baud_config(1, BAUD_RATE-1);
+  uart_con_config(1, 16'h1 | `UART_DIV_EN);
+  uart_txbuf_config(1, 16'h6c);
+
   $display("First Tx config ......  \n");
 
+
 	
-  //#(100*CLK50M_PERIOD);
+  //#(100*CLK48M_PERIOD);
   //uart_baud_config(1, 16'h6);
   //uart_con_config(1, 16'h1);
   //uart_txbuf_config(1, 16'h73);
-  //$display("Second Tx config ......  \n");
 	
-  #1000;
-  $stop;
+  repeat(15*BAUD_RATE*`UART_DIV_SEL) @(posedge uart_baud_clk);
+	$stop;
 end
 
 
@@ -160,7 +166,7 @@ begin
   @(posedge sys_clk);
   #1;
   uart_txbuf_wr = uarttxbuf_wr;
-  icb_wdat[15:0] = bus_wdat[15:0];
+  icb_wdat[7:0] = bus_wdat[7:0];
   @(posedge sys_clk);
   #1;
   uart_txbuf_wr = 1'b0;
