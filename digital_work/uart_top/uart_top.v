@@ -192,12 +192,45 @@ wire uart_txpnd_in = uart_txpnd_set | uart_txpnd & ~uart_txpnd_clear;
 // uart RX
 //
 //-------------------------------------------------------------
+reg [15:0] uart_rxbaud_cnt;
+reg [2:0] uart_rxdiv_cnt;
 wire uart_rx_start = uart_rx_dly & ~uart_rx; // negedge edge
 
+wire uart_rxbaud_mch = (uart_baud == uart_rxbaud_cnt) && baud_edge;
+wire [15:0] uart_rxbaud_cnt_in = uart_rxbaud_mch || (uart_rx_start || (rx_state==5'd0)) ? 16'd0 : 
+                                 uart_en & !(uart_rx_start || (rx_state==5'd0)) ? uart_rxbaud_cnt + baud_edge : uart_rxbaud_cnt;
+
+wire uart_rxdiv_mch = (uart_rxdiv_cnt == (uart_div_sel ? 3'd2 : 3'd3)) & uart_rxbaud_mch;
+wire [2:0] uart_rxdiv_cnt_in =  (uart_rxdiv_mch || (rx_state==5'd0)) ? 3'd0 : uart_rxdiv_cnt + uart_rxbaud_mch;
+
+wire uart_rxbit_mch = uart_rxdiv_mch & baud_edge;
+
+wire [4:0] rx_state_in = ~uart_en ? 5'd0 : rece_state;
 
 
-
-
+//always @(*)
+//begin
+//  case(rx_state)
+//    5'd0: 
+//      begin
+//        if(uart_rx_start) rece_state = 5'd1;
+//      end
+//    5'd1:
+//
+//
+//
+//
+//    default: rece_state = 5'd0;
+//
+//  endcase
+//end
+//
+//always @(*)
+//begin
+//
+//
+//
+//end
 
 
 //-------------------------------------------------------------
@@ -205,13 +238,6 @@ wire uart_rx_start = uart_rx_dly & ~uart_rx; // negedge edge
 // 
 //
 //-------------------------------------------------------------
-//always @(*)
-//begin
-//  case(rx_state)
-//    5'd0: 
-//
-//  endcase
-//end
 
 
 
