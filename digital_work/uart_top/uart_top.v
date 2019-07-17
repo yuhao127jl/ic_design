@@ -154,11 +154,11 @@ begin
     5'd1, 5'd2, 5'd3, 5'd4, 5'd5, 5'd6, 5'd7, 5'd8, 5'd9, 5'd10:
         send_state = tx_state + uart_txbit_mch;
     5'd11:
-        send_state = uart_prty_en ? tx_state + uart_txbit_mch : 5'd13;
+        send_state = uart_txbit_mch ? (uart_prty_en ? tx_state + uart_txbit_mch : 5'd0) : tx_state;
     5'd12:
         send_state = tx_state + uart_txbit_mch;
     5'd13:
-        send_state = uart_txbit_mch ? 5'd0 : tx_state;
+        send_state = 5'd0;
     default: send_state = 5'd0;
   endcase
 end
@@ -182,9 +182,9 @@ begin
   endcase
 end
 
-assign uart_txpnd_set = (uart_txpnd & uart_txie) | (uart_rxpnd & uart_rxie);
-assign uart_txpnd_clr = uart_txpnd_clr | uart_txbuf_wr;
-wire uart_txpnd_in = uart_txpnd_set | uart_txpnd & ~uart_txpnd_clr;
+assign uart_txpnd_set = (tx_state == (uart_prty_en ? 5'd12 : 5'd11)) & uart_txbit_mch;
+wire uart_txpnd_clear = uart_txpnd_clr | uart_txbuf_wr;
+wire uart_txpnd_in = uart_txpnd_set | uart_txpnd & ~uart_txpnd_clear;
 
 
 //-------------------------------------------------------------
@@ -205,6 +205,13 @@ wire uart_rx_start = uart_rx_dly & ~uart_rx; // negedge edge
 // 
 //
 //-------------------------------------------------------------
+//always @(*)
+//begin
+//  case(rx_state)
+//    5'd0: 
+//
+//  endcase
+//end
 
 
 
@@ -223,6 +230,7 @@ wire uart_rx_start = uart_rx_dly & ~uart_rx; // negedge edge
 // 
 //
 //-------------------------------------------------------------
+//assign uart_pnd = (uart_txpnd & uart_txie) | (uart_rxpnd & uart_rxie);
 
 
 
@@ -276,6 +284,7 @@ always @(posedge uart_clk or negedge sys_rstn)
 if(!sys_rstn)
   begin
     uart_pnd        <= #1 1'b0;
+    uart_txpnd      <= #1 1'b0;
     uart_baud_cnt   <= #1 16'd0;
     uart_div_cnt    <= #1 3'd0;
     tx_state        <= #1 5'd0;
@@ -284,6 +293,7 @@ if(!sys_rstn)
 else
   begin
     uart_pnd        <= #1 uart_pnd_in;
+    uart_txpnd      <= #1 uart_txpnd_in;
     uart_baud_cnt   <= #1 uart_baud_cnt_in;
     uart_div_cnt    <= #1 uart_div_cnt_in;
     tx_state        <= #1 tx_state_in;
