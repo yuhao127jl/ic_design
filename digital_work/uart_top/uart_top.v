@@ -16,9 +16,10 @@ input [15:0]      icb_wdat,
 output [15:0]     uart_con,
 output reg[15:0]  uart_baud,
 output [15:0]     uart_txbuf,
+output [15:0]     uart_rxbuf,
 
+input             uart_rx,
 output reg        uart_tx,
-output            uart_rx,
 output reg        uart_en,
 output            uart_int,
 
@@ -45,8 +46,6 @@ reg uart_rx_dly;
 
 wire    icb_clk;
 wire    uart_clk;
-wire    uart_pnd_set;
-reg     uart_pnd;
 reg     uart_txpnd;
 reg     uart_rxpnd;
 
@@ -79,12 +78,8 @@ wire [15:0] uart_baud_in = uart_baud_wr ? icb_wdat[15:0] : uart_baud;
 
 wire [15:0] txbuf_in = uart_txbuf_wr ? icb_wdat[7:0] : txbuf;
 
-
-
-assign  uart_con = {uart_pnd, 5'd0, uart_prty_9bit, 5'd0, uart_prty_en, uart_rxie, uart_txie, uart_en};
+assign  uart_con = {uart_rxpnd, uart_txpnd, 4'd0, uart_prty_9bit, 5'd0, uart_prty_en, uart_rxie, uart_txie, uart_en};
 assign uart_txbuf = {8'd0, txbuf};
-
-assign uart_int = uart_pnd;
 
 
 //-------------------------------------------------------------
@@ -97,8 +92,6 @@ CLKLANQHDV4 clock_gate1(.Q(uart_clk), .CK(sys_clk), .E(clk_en), .TE(1'b0));
 
 wire  icb_en = uart_con_wr | uart_baud_wr | uart_txbuf_wr;
 CLKLANQHDV4 clock_gate2(.Q(icb_clk), .CK(sys_clk), .E(icb_en), .TE(1'b0));
-
-
 
 
 //-------------------------------------------------------------
@@ -194,6 +187,7 @@ wire uart_txpnd_in = uart_txpnd_set | uart_txpnd & ~uart_txpnd_clear;
 //-------------------------------------------------------------
 reg [15:0] uart_rxbaud_cnt;
 reg [2:0] uart_rxdiv_cnt;
+reg [7:0] uart_rx_buf;
 wire uart_rx_start = uart_rx_dly & ~uart_rx; // negedge edge
 
 wire uart_rxbaud_mch = (uart_baud == uart_rxbaud_cnt) && baud_edge;
@@ -209,6 +203,8 @@ wire uart_rxbit_mch = uart_rxdiv_mch & baud_edge;
 
 wire [4:0] rx_state_in = ~uart_en ? 5'd0 : rece_state;
 
+wire rx_state_smple = rx_state[1] | rx_state[2] | rx_state[3];
+wire rx_smple = (uart_rxdiv_cnt==3'd1) & (uart_div_sel ? uart_rxbaud_half_mch : uart_rxbaud_mch) & rx_state_smple; 
 
 always @(*)
 begin
@@ -224,61 +220,43 @@ begin
       end
     5'd10:
       begin
-
+        rece_state = uart_rxbit_mch ? (uart_prty_en ? rx_state + uart_rxbit_mch : 5'd0) : rx_state;
+      end
+    5'd11:
+      begin
+        rece_state = rx_state + uart_rxbit_mch;
       end
 
-
-
-
     default: rece_state = 5'd0;
-
   endcase
 end
 
-//always @(*)
-//begin
-//
-//
-//
-//end
+reg uart_rx_prty;
+always @(posedge uart_clk or negedge sys_rstn)
+if(!sys_rstn)
+  begin
+    uart_rx_buf <= #1 8'd0;
+    uart_rx_prty <= #1 1'b0;
+  end
+else
+  begin
+    case(rx_state)
+      5'd2 : uart_rx_buf[0] <= #1 rx_smple ? uart_rx_dly : uart_rx_buf[0];
+      5'd3 : uart_rx_buf[1] <= #1 rx_smple ? uart_rx_dly : uart_rx_buf[1];
+      5'd4 : uart_rx_buf[2] <= #1 rx_smple ? uart_rx_dly : uart_rx_buf[2];
+      5'd5 : uart_rx_buf[3] <= #1 rx_smple ? uart_rx_dly : uart_rx_buf[3];
+      5'd6 : uart_rx_buf[4] <= #1 rx_smple ? uart_rx_dly : uart_rx_buf[4];
+      5'd7 : uart_rx_buf[5] <= #1 rx_smple ? uart_rx_dly : uart_rx_buf[5];
+      5'd8 : uart_rx_buf[6] <= #1 rx_smple ? uart_rx_dly : uart_rx_buf[6];
+      5'd9 : uart_rx_buf[7] <= #1 rx_smple ? uart_rx_dly : uart_rx_buf[7];
+      5'd10: uart_rx_prty <= #1 uart_prty_en ? (rx_smple ? uart_rx_dly : uart_rx_prty) : 1'b0;
+      default: ;
+    endcase
+  end
 
-
-//-------------------------------------------------------------
-//
-// 
-//
-//-------------------------------------------------------------
-
-
-
-
-
-//-------------------------------------------------------------
-//
-// 
-//
-//-------------------------------------------------------------
-
-
-
-
-
-
-
-
-//-------------------------------------------------------------
-//
-// uart pending 
-//
-//-------------------------------------------------------------
-//assign uart_txpnd =    ;
-//assign uart_rxpnd =    ;
-//assign uart_pnd_set = (uart_txpnd & uart_txie) | (uart_rxpnd & uart_rxie);
-//assign uart_pnd_clr = uart_pnd_clr | uart_txbuf_wr;
-wire uart_pnd_in;
-assign uart_int = (uart_txpnd & uart_txie) | (uart_txpnd & uart_txie);
-
-
+wire uart_rxpnd_set = (rx_state == (uart_prty_en ? 5'd11 : 5'd10)) & rx_smple;
+wire uart_rxpnd_in = uart_rxpnd_set | uart_rxpnd & ~uart_rxpnd_clr;
+assign uart_rxbuf = {8'd0, uart_rx_buf};
 
 
 //-------------------------------------------------------------
@@ -286,7 +264,7 @@ assign uart_int = (uart_txpnd & uart_txie) | (uart_txpnd & uart_txie);
 // uart interrupt
 //
 //-------------------------------------------------------------
-//assign uart_int = (uart_txpnd & uart_txie) | (uart_rxpnd & uart_rxie);
+assign uart_int = (uart_txpnd & uart_txie) | (uart_rxpnd & uart_rxie);
 
 
 //-------------------------------------------------------------
@@ -323,8 +301,8 @@ else
 always @(posedge uart_clk or negedge sys_rstn)
 if(!sys_rstn)
   begin
-    uart_pnd        <= #1 1'b0;
     uart_txpnd      <= #1 1'b0;
+    uart_rxpnd      <= #1 1'b0;
     uart_baud_cnt   <= #1 16'd0;
     uart_rxbaud_cnt <= #1 16'd0;
     uart_div_cnt    <= #1 3'd0;
@@ -335,8 +313,8 @@ if(!sys_rstn)
   end
 else
   begin
-    uart_pnd        <= #1 uart_pnd_in;
     uart_txpnd      <= #1 uart_txpnd_in;
+    uart_rxpnd      <= #1 uart_rxpnd_in;
     uart_baud_cnt   <= #1 uart_baud_cnt_in;
     uart_rxbaud_cnt <= #1 uart_rxbaud_cnt_in;
     uart_div_cnt    <= #1 uart_div_cnt_in;
@@ -346,11 +324,6 @@ else
     uart_rx_dly     <= #1 uart_rx;
   end
 
-
-//always @(posedge uart_clk)
-//  begin
-//  
-//  end
 
 
 endmodule
