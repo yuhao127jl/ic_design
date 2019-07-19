@@ -44,13 +44,14 @@ reg	[15:0]icb_wdat;
 reg	sys_clk;
 reg	uart_baud_clk;
 reg	sys_rstn;
+reg	uart_rx;
 
 // *** Outputs from UUT ***
 wire	[15:0]  uart_con;
 wire	[15:0]  uart_baud;
 wire	[15:0]  uart_txbuf;
+wire	[15:0]  uart_rxbuf;
 wire	uart_tx;
-wire	uart_rx;
 wire	uart_en;
 wire	uart_int;
 
@@ -76,6 +77,7 @@ uart_top	uut	(
 			.uart_con (uart_con),
 			.uart_baud (uart_baud),
 			.uart_txbuf (uart_txbuf),
+			.uart_rxbuf (uart_rxbuf),
 			.uart_tx (uart_tx),
 			.uart_rx (uart_rx),
 			.uart_en (uart_en),
@@ -94,6 +96,11 @@ end
 initial begin
   uart_baud_clk = 0;
   forever #(CLK24M_PERIOD/2) uart_baud_clk = ~uart_baud_clk;
+end
+
+// uart tx connect uart rx
+initial begin
+  force tb_uart_top.uut.uart_rx = tb_uart_top.uut.uart_tx;
 end
 
 
