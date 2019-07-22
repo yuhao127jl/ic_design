@@ -1,0 +1,76 @@
+Magic 271485
+Revision Verdi3_2012.10
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 51 1920 980 172 65
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/klin/work/digitalwork/cic_decimator/sim/run/ic_design.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 0.000000 45102812.500000
+cursor 7156250.000000
+marker 25906250.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 0
+; marker line index
+markerPos 21
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "CIC_DSF"
+activeDirFile "" "/home/klin/work/digitalwork/cic_decimator/sim/run/ic_design.fsdb"
+addSignal -w analog -ds pwc -h 98 -UNSIGNED -UDEC /tb_cic_decimator/cic_din[7:0]
+addSignal -h 15 -holdScope cic_clk
+addSignal -h 15 -holdScope cic_rstn
+addSignal -w analog -ds pwc -h 98 -2COMP -UDEC -holdScope cic_dout[15:0]
+addSignal -h 15 -UNSIGNED -UDEC /tb_cic_decimator/uut/samp_cnt[4:0]
+addSignal -h 15 -holdScope deci_samp_pulse
+addSignal -h 15 -holdScope state
+addSignal -h 15 -UNSIGNED -UDEC -holdScope cic_buf[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope int_buf0[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope int_buf1[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope int_buf2[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf00[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf10[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf20[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf3[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf01[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf11[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf21[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf02[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf12[25:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope comb_buf22[25:0]
+addGroup "G2"
+addGroup "G3"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+

@@ -50,8 +50,9 @@ reg [25:0] comb_buf3;
 //
 //-------------------------------------------------------------
 wire [4:0] samp_cnt_in = (samp_cnt==5'd31) ? 5'd0 : samp_cnt + 5'd1;
+wire deci_samp_pulse = (samp_cnt==5'd8);
 //wire deci_samp_pulse = (samp_cnt>8 && samp_cnt<16);
-wire deci_samp_pulse = (~samp_cnt[4] & samp_cnt[3]);
+//wire deci_samp_pulse = (~samp_cnt[4] & samp_cnt[3]);
 wire [25:0] sxt_din = {{18{cic_buf[7]}}, cic_buf}; // sign extend
 
 

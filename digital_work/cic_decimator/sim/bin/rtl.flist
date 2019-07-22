@@ -9,7 +9,7 @@
 
 ../../rtl/cic_decimator.v
 
-//../../bench/tb_cic_decimator.v
+../../bench/tb_cic_decimator.v
 
 
 
