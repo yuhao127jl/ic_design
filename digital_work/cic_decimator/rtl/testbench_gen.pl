@@ -179,12 +179,12 @@ for ($line = $pfound; $line < $lines; $line++) {
 }
 
 foreach my $i (@inports) {
-        $i =~ s/\s*(input|inout)\s*//;  # Remove Input or Inout text.
+        $i =~ s/\s*(input|inout)\s*/reg\t/;  # Remove Input or Inout text.
         $i =~ s/\s*(wire)\s*/reg\t/;      # Replace each wire with a reg identifier.
 }
 
 foreach my $i (@outports) {
-        $i =~ s/\s*(output)\s*//;  # Remove Input or Inout text.
+        $i =~ s/\s*(output)\s*/wire\t/;  # Remove Input or Inout text.
         $i =~ s/\s*(reg)\s*/wire\t/;      # Replace each wire with a reg identifier.
 }
 
@@ -212,10 +212,9 @@ for ($line = 0; $line < $lines; $line++) {
 my @clks;
 
 foreach my $i (@ports) {
-
-        if ($i =~ m/\s*(clk|clock)/) {
-                push (@clks, $i);       # Grab any clocks;
-        }
+  if ($i =~ m/\s*(clk|clock)/) {
+          push (@clks, $i);       # Grab any clocks;
+  }
 }
 
 
@@ -317,14 +316,11 @@ foreach my $i (@clks) {
 printf($inF "// initial block\n");
 printf($inF "initial\n");
 printf($inF "begin\n");
-printf($inF "\t// initialize signals\n");
+printf($inF "\t// initialize signals");
 foreach $i (@inportsonly) {
 	printf($inF "\n\t$i = 0;");	#print the ports
 }
 printf($inF "\n");
-printf($inF "\n");
-printf($inF "\t// wait 1 clk cycle, de-assert n_rst\n");
-printf($inF "\tCpuReset;\n");
 printf($inF "\n");
 printf($inF "\t// open results file, write header\n");
 printf($inF "\tresults_file=\$fopen(\"$new_file_results\");\n");
@@ -346,6 +342,7 @@ printf($inF "\n");
 printf($inF "// Add more test bench stuff here as well\n");
 printf($inF "\n");
 printf($inF "\n");
+
 #printf($inF "// Test Bench Tasks\n");
 #printf($inF "\n");
 #printf($inF "task CpuReset;\n");
@@ -357,6 +354,14 @@ printf($inF "\n");
 #printf($inF "\t@ (posedge clk);\n");
 #printf($inF "end\n");
 #printf($inF "endtask\n");
+
+printf($inF "// Dump FSDB wave\n");
+printf($inF "initial\n");
+printf($inF "begin\n");
+printf($inF "\t\$fsdbDumpfile(\"ic_design.fsdb\");\n");
+printf($inF "\t\$fsdbDumpvars;\n");
+printf($inF "end\n");
+printf($inF "\n");
 printf($inF "\n");
 printf($inF "endmodule\n");
 close(inF); 
@@ -371,7 +376,6 @@ exit;
 #------------------------------------------------------------------------------ 
 # Generic Error and Exit routine 
 #------------------------------------------------------------------------------
-
 sub dienice {
 	my($errmsg) = @_;
 	print"$errmsg\n";

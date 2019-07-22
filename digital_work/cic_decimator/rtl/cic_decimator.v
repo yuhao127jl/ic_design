@@ -12,7 +12,7 @@
 module cic_decimator(
 input [7:0]       cic_din,
 
-output [25:0]     cic_dout,
+output [15:0]     cic_dout,
 
 input             cic_clk,
 input             cic_rstn
@@ -50,7 +50,8 @@ reg [25:0] comb_buf3;
 //
 //-------------------------------------------------------------
 wire [4:0] samp_cnt_in = (samp_cnt==5'd31) ? 5'd0 : samp_cnt + 5'd1;
-wire deci_samp_pulse = (samp_cnt>8 && samp_cnt<16);
+//wire deci_samp_pulse = (samp_cnt>8 && samp_cnt<16);
+wire deci_samp_pulse = (~samp_cnt[4] & samp_cnt[3]);
 wire [25:0] sxt_din = {{18{cic_buf[7]}}, cic_buf}; // sign extend
 
 
@@ -72,6 +73,7 @@ wire [25:0] comb_buf22_in = deci_samp_pulse ? comb_buf21 : comb_buf22;
 
 wire [25:0] comb_buf3_in =  deci_samp_pulse ? comb_buf20 - comb_buf22 : comb_buf3;
 
+assign cic_dout = comb_buf3[25:10];
 
 //-------------------------------------------------------------
 //
