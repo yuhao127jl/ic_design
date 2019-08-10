@@ -1,3 +1,4 @@
+//--------------------------------------------------------------------------------
 // control pins:
 // input: reset_n     - active low reset
 // input: clk	      - master clock input
@@ -21,6 +22,7 @@
 //
 // note1: frame_n must deasserted at least one cycle between packets.
 // note2: frame_n must be deasserted with the last valid din bit in the frame.
+//--------------------------------------------------------------------------------
 
 //module router(router_io.dut io, host_io.dut host);
 module router(router_io.dut io, host_io.dut host);

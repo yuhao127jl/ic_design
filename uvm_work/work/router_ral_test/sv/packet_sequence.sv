@@ -13,6 +13,13 @@ class packet_sequence_base extends uvm_sequence #(packet);
 		end
 	endtask
 
+	virtual task post_start();
+		if((get_parent_sequence()==null) && (starting_phase!=null))
+		begin
+			starting_phase.drop_objection(this);
+		end
+	endtask
+
 endclass
 
 
@@ -58,7 +65,7 @@ class packet_sequence extends packet_sequence_base;
 		repeat(item_cnt) 
 		begin
 			`uvm_do_with(req, {if(port_id==-1) sa inside {[0:15]};
-						 else sa = port_id;});
+						 	   else sa = port_id;});
 		end
 	endtask
 
