@@ -6,6 +6,9 @@ class packet_sequence_base extends uvm_sequence #(packet);
 		super.new(name);
 	endfunction
 
+	//-----------------------------------------//
+	// pre_start 
+	//-----------------------------------------//
 	virtual task pre_start();
 		if((get_parent_sequence()==null) && (starting_phase!=null))
 		begin
@@ -13,6 +16,9 @@ class packet_sequence_base extends uvm_sequence #(packet);
 		end
 	endtask
 
+	//-----------------------------------------//
+	// post_start 
+	//-----------------------------------------//
 	virtual task post_start();
 		if((get_parent_sequence()==null) && (starting_phase!=null))
 		begin
