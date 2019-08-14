@@ -98,3 +98,113 @@ class host_reset_sequence extends host_sequence_base;
 
 endclass
 
+//------------------------------------------------------------------//
+//
+// host bfm sequence 
+// The host_bfm_sequence class is designed to test the DUT registers
+// adn memory using the host_driver without using RAL.
+//
+//------------------------------------------------------------------//
+class host_bfm_sequence extends host_sequence_base;
+    `uvm_objects_utils(host_bfm_sequence)
+
+	function new(string name = "host_bfm_sequence");
+		super.new(name);
+	endfunction
+
+	//-----------------------------------------//
+	// body
+	// read and write the DUT configuartion fields
+	//-----------------------------------------//
+	virtual task body();
+		`uvm_do_with(req, {addr == 'h0; kind == host_tr:READ;});
+		
+		//--------------------------------------------//
+		//
+		//--------------------------------------------//
+		if(req.data != 'h5A03)
+			`uvm_fatal("BFM_ERR", $sformatf("HOST_ID is %4h instead of 'h5A03", req.data));
+		else
+			`uvm_info("BFM_TEST", $sformatf("HOST_ID is %4h the expected value is 'h5A03", req.data));
+
+		//--------------------------------------------//
+		//
+		//--------------------------------------------//
+		`uvm_do_with(req, {addr == 'h100; kind == host_tr:READ;});
+		if(req.data != '1)
+			`uvm_fatal("BFM_ERR", $sformatf("LOCK is %4h instead of 'hffff", req.data));
+
+		//--------------------------------------------//
+		//
+		//--------------------------------------------//
+		`uvm_do_with(req, {addr == 'h100; data == '1; kind == host_tr:WRITE;});
+		`uvm_do_with(req, {addr == 'h100; kind == host_tr:READ;});
+		if(req.data != '0)
+			`uvm_fatal("BFM_ERR", $sformatf("LOCK is %4h instead of 'h0000", req.data));
+		else
+			`uvm_info("BFM_TEST", $sformatf("LOCK is %4h the expected value is 'h0000", req.data));
+		
+		//--------------------------------------------//
+		//
+		//--------------------------------------------//
+		for(int i=0; i<256; i++) begin
+			`uvm_do_with(req, {addr == 'h1000+i; kind == host_tr:READ;});
+			if(req.data != (i^(i>>1)))
+				`uvm_fatal("BFM_ERR", $sformatf("R_ARRAY is %4h instead of %4h", req.data, i^(i>>1))));
+		end
+		`uvm_info("BFM_ERR", $sformatf("R_ARRAY contains the expected values", UVM_MEDIUM);
+
+		//--------------------------------------------//
+		//
+		//--------------------------------------------//
+		for(int i=0; i<4096; i++) begin
+			`uvm_do_with(req, {addr == 'h4000+i; data ==16'b1 << 1%16; kind == host_tr:WRITE;});
+		end
+	
+		//--------------------------------------------//
+		//
+		//--------------------------------------------//
+		for(int i=0; i<4096; i++) begin
+			`uvm_do_with(req, {addr == 'h4000+i; kind == host_tr:READ;});
+			if(req.data != (16'b1 << 1%16))
+				`uvm_fatal("BFM_ERR", $sformatf("R_ARRAY is %4h instead of %4h", req.data, 16'b1 << 1%16));
+		end
+		`uvm_info("BFM_ERR", $sformatf("RAM contains the expected values", UVM_MEDIUM);
+
+	endtask
+
+endclass
+
+//------------------------------------------------------------------//
+//
+//
+//
+//------------------------------------------------------------------//
+
+
+
+
+
+//------------------------------------------------------------------//
+//
+// host ral sequence base
+// The following is the RAL configuartion sequence base. It contains 
+// the reg model that the RAL sequences will need.
+//
+//------------------------------------------------------------------//
+class host_ral_sequence_base extends uvm_reg_sequence #(host_sequence_base);
+    `uvm_objects_utils(host_ral_sequence_base)
+
+	// creat instance of regmodel
+	ral_block_host_regmodel regmodel;
+
+	function new(string name = "host_ral_sequence_base");
+		super.new(name);
+	endfunction
+
+
+
+
+endclass
+
+
