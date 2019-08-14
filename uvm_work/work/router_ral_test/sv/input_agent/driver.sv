@@ -15,7 +15,7 @@ class driver extends uvm_driver #(packet);
 	//-----------------------------------------//
 	// build phase
 	//-----------------------------------------//
-	function void build_phase(uvm_phase phase);
+    virtual	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 
 		uvm_config_db#(int)::get(this, "", "port_id", port_id);
