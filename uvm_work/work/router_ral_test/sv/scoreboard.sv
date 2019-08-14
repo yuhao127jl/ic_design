@@ -1,4 +1,7 @@
+// 1. MS_SCOREBOARD ---> multi comparator
+// 2. not MS_SCOREBOARD ---> one comparator
 
+`ifdef MS_SCOREBOARD
 //------------------------------------------------------------------//
 //
 // add suffix
@@ -64,3 +67,52 @@ class scoreboard extends uvm_scoreboard;
 
 endclass
 
+`else  // not define MS_SCOREBOARD
+
+class scoreboard extends uvm_scoreboard;
+	typedef uvm_in_order_class_comparator #(packet) packet_comp;
+	packet_comp comparator;
+
+	// ToDo
+    uvm_analysis_export #(packet) before_export;
+    uvm_analysis_export #(packet) after_export;
+
+    `uvm_component_utils(scoreboard)
+
+	function new(string name, uvm_component parent);
+		super.new(name, parent);
+	endfunction
+
+	//-----------------------------------------//
+	// build phase
+	//-----------------------------------------//
+	virtual function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+        
+		comparator = packet_comp::type_id::create("comparator", this);
+        before_export = new("before_export", this);
+        after_export = new("after_export", this);
+	endfunction
+
+	//-----------------------------------------//
+	// connect_phase
+	//-----------------------------------------//
+	virtual function void connect_phase(uvm_phase phase);
+		super.connect_phase(phase);
+
+		this.before_export.connect(comparator.before_export);
+		this.after_export.connect(comparator.after_export);
+	endfunction
+
+	//-----------------------------------------//
+	// report_phase
+	//-----------------------------------------//
+	virtual function void report_phase(uvm_phase phase);
+		`uvm_info("Scoreboard_Report",
+				  $sformatf("Comparator Matches = %0d, Mismatched = %0d", comparator.m_matches, comparator.m_mismatches), UVM_MEDIUM);
+	endfunction
+
+
+endclass
+
+`endif
