@@ -29,6 +29,11 @@ class packet_sequence_base extends uvm_sequence #(packet);
 endclass
 
 
+//------------------------------------------------------------------//
+//
+// packet_sequence
+//
+//------------------------------------------------------------------//
 class packet_sequence extends packet_sequence_base;
 	int			item_cnt = 10;
 	bit[15:0]	da_enable = '1;
@@ -42,7 +47,10 @@ class packet_sequence extends packet_sequence_base;
 		`uvm_field_int(port_id, UVM_ALL_ON)
 	`uvm_object_utils_end
 
-	task pre_start();
+	//-----------------------------------------//
+	// pre_start 
+	//-----------------------------------------//
+	virtual task pre_start();
 		super.pre_start();
 		begin
 			uvm_sequencer_base my_seqr = get_sequencer();

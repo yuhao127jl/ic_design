@@ -202,7 +202,22 @@ class host_ral_sequence_base extends uvm_reg_sequence #(host_sequence_base);
 		super.new(name);
 	endfunction
 
+	//-----------------------------------------//
+	// pre_start 
+	//-----------------------------------------//
+	virtual task pre_start();
+		super.pre_start();
+	
+		if(!uvm_config_db#(ral_block_host_regmodel)::get(p_seqr.get_parent(), "", "regmodel", regmodel);
+		begin
+			`uvm_info("RAL_CFG", "regmodel not set . Make sure it is set by other mechanisms", UVM_MEDIUM);
+		end
 
+		if(regmodel == null)
+		begin
+			`uvm_fatal("RAL_CFG", "regmodel not set");
+		end
+	endtask
 
 
 endclass
