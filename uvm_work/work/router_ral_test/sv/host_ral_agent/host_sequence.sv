@@ -177,12 +177,10 @@ endclass
 
 //------------------------------------------------------------------//
 //
-//
+// ral_block_host_regmodel
 //
 //------------------------------------------------------------------//
-
-
-
+`include "ral_block_host_regmodel.sv"
 
 
 //------------------------------------------------------------------//
@@ -222,4 +220,101 @@ class host_ral_sequence_base extends uvm_reg_sequence #(host_sequence_base);
 
 endclass
 
+
+//------------------------------------------------------------------//
+//
+// host ral test sequence 
+//
+//------------------------------------------------------------------//
+class host_ral_test_sequence extends host_ral_sequence_base;
+    `uvm_objects_utils(host_ral_test_sequence)
+
+	function new(string name = "host_ral_test_sequence");
+		super.new(name);
+	endfunction
+
+	//-----------------------------------------//
+	// task body()
+	//-----------------------------------------//
+	virtual task body();
+		uvm_status_e status;
+		uvm_reg_data_t data;
+		// 	
+		regmodel.HOST_ID.read(.status(status), .value(data), .path(UVM_BACKDOOR), .parent(this));
+		if(data != 'h5A03)
+			`uvm_fatal("RAL_ERR", $sformatf("HOST_ID is %4h instead of 'h5A03", data));
+		else
+			`uvm_info("RAL_TEST", $sformatf("HOST_ID is %4h the expected value is 'h5A03", data));
+
+		// 	
+		regmodel.HOST_ID.read(.status(status), .value(data), .path(UVM_BACKDOOR), .parent(this));
+		if(data != 'hffff)
+			`uvm_fatal("RAL_ERR", $sformatf("LOCK is %4h instead of 'hffff", data));
+
+		// 	
+		regmodel.HOST_ID.read(.status(status), .value('1), .path(UVM_FRONTDOOR), .parent(this));
+		regmodel.HOST_ID.read(.status(status), .value(data), .path(UVM_BACKDOOR), .parent(this));
+		if(data != 'h0)
+			`uvm_fatal("RAL_ERR", $sformatf("LOCK is %4h instead of 'h0000", data));
+		else
+			`uvm_info("RAL_TEST", $sformatf("LOCK is %4h the expected value is 'h0000", data));
+
+
+		//--------------------------------------------//
+		//
+		//--------------------------------------------//
+		for(int i=0; i<256; i++) begin
+			regmodel.R_ARRAY[i].write(.status(status), .value(i^(i>>1)), .path(UVM_FRONTDOOR), .parent(this));
+		end
+
+		//
+		for(int i=0; i<256; i++) begin
+			regmodel.R_ARRAY[i].read(.status(status), .value(data), .path(UVM_BACKDOOR), .parent(this));
+			if(data != (i^(i>>1))
+				`uvm_fatal("RAL_ERR", $sformatf("R_ARRAY is %4h instead of %4h", data, i^(i>>1)));
+		end
+		`uvm_info("RAL_TEST", "R_ARRAY contains the expected values", UVM_MEDIUM);
+	
+		//--------------------------------------------//
+		//
+		//--------------------------------------------//
+		for(int i=0; i<4096; i++) begin
+			regmodel.R_ARRAY[i].write(.status(status), .offset(i), .value(16'b1<<1%16), .path(UVM_FRONTDOOR), .parent(this));
+		end
+
+		//
+		for(int i=0; i<4096; i++) begin
+			regmodel.R_ARRAY[i].read(.status(status), .offset(i), .value(data), .path(UVM_BACKDOOR), .parent(this));
+			if(data != (16'b1 << 1%16))
+				`uvm_fatal("RAL_ERR", $sformatf("RAM is %4h instead of %4h", data, 16'b1 << 1%16));
+			`uvm_info("RAL_TEST", "RAM contains the expected values", UVM_MEDIUM);
+		end
+	endtask
+
+
+endclass
+
+//------------------------------------------------------------------//
+//
+// host ral port unlock sequence 
+//
+//------------------------------------------------------------------//
+class ral_port_unlock_sequence extends host_ral_sequence_base;
+    `uvm_objects_utils(ral_port_unlock_sequence)
+
+	function new(string name = "ral_port_unlock_sequence");
+		super.new(name);
+	endfunction
+
+	//-----------------------------------------//
+	// task body()
+	//-----------------------------------------//
+	virtual task body();
+		uvm_status_e status;
+		uvm_reg_data_t data;
+		// 	
+		regmodel.LOCK.write(.status(status), .value('1), .path(UVM_FRONTDOOR), .parent(this));
+	endtask
+
+endclass
 
