@@ -17,7 +17,7 @@ class driver_rst_sequence extends uvm_sequence #(packet);
 	virtual task pre_start();
 		if((get_parent_sequence()==null) && (starting_phase!=null))
 		begin
-			starting_phase.drop_objection(this);
+			starting_phase.raise_objection(this);
 		end
 		uvm_config_db#(int)::get(get_sequencer(), "", "port_id", port_id);
 

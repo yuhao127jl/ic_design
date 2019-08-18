@@ -74,6 +74,8 @@ class ral_reg_R_ARRAY extends uvm_reg;
         this.H_REG.configure(this, 16, 0, "RW", 0, 16'h0, 1, 0, 1);
     endfunction
 
+    `uvm_object_utils(ral_reg_R_ARRAY)
+
 endclass
 
 

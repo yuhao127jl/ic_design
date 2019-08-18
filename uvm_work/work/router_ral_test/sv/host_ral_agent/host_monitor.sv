@@ -17,7 +17,7 @@ class host_monitor extends uvm_monitor;
 		super.build_phase(phase);
 
 		uvm_config_db#(virtual host_io)::get(this.get_parent(), "", "m_vif", host_vif);
-		if(router_vif==null)
+		if(host_vif==null)
 		begin
 			`uvm_fatal("CFG_ERROR", "Interface for DUT host  not set");
         end

@@ -15,7 +15,7 @@ class host_driver extends uvm_driver #(host_tr);
 		super.build_phase(phase);
         
 		uvm_config_db#(virtual host_io)::get(this.get_parent(), "", "m_vif", host_vif);
-		if(router_vif==null)
+		if(host_vif==null)
 		begin
 			`uvm_fatal("CFG_ERROR", "Interface for DUT host  not set");
 		end
@@ -49,8 +49,8 @@ class host_driver extends uvm_driver #(host_tr);
                 host_tr::READ: begin
                     host_vif.rd_n       = '0;
                     host_vif.address    = req.addr;
-                    @(host_vif.mst);
-                    req.data            = host_vif.mst.data;
+                    @(host_vif.cb);
+                    req.data            = host_vif.cb.data;
                     host_vif.rd_n       = '1;
                     host_vif.address    = 'z;
                 end
@@ -58,35 +58,35 @@ class host_driver extends uvm_driver #(host_tr);
                     host_vif.wr_n       = '0;
                     host_vif.data       = req.data;
                     host_vif.address    = req.addr;
-                    @(host_vif.mst);
+                    @(host_vif.cb);
                     host_vif.wr_n       = '1;
                     host_vif.data       = 'z;
                     host_vif.address    = 'z;
                 end
-                default: `uvm_fatal("REG_ERR", "Not a valid Register Command");
+                default: begin `uvm_fatal("REG_ERR", "Not a valid Register Command"); end
             endcase
         end
         else // emulating register access
         begin
             case(req.kind)
                 host_tr::READ: begin
-                    host_vif.mst.rd_n       = '0;
-                    host_vif.mst.address    = req.addr;
-                    @(host_vif.mst);
-                    req.data            = host_vif.mst.data;
-                    host_vif.mst.rd_n       = '1;
-                    host_vif.mst.address    = 'z;
+                    host_vif.cb.rd_n       = '0;
+                    host_vif.cb.address    = req.addr;
+                    @(host_vif.cb);
+                    req.data            = host_vif.cb.data;
+                    host_vif.cb.rd_n       = '1;
+                    host_vif.cb.address    = 'z;
                 end
                 host_tr::WRITE: begin
-                    host_vif.mst.wr_n       = '0;
-                    host_vif.mst.data       = req.data;
-                    host_vif.mst.address    = req.addr;
-                    @(host_vif.mst);
-                    host_vif.mst.wr_n       = '1;
-                    host_vif.mst.data       = 'z;
-                    host_vif.mst.address    = 'z;
+                    host_vif.cb.wr_n       = '0;
+                    host_vif.cb.data       = req.data;
+                    host_vif.cb.address    = req.addr;
+                    @(host_vif.cb);
+                    host_vif.cb.wr_n       = '1;
+                    host_vif.cb.data       = 'z;
+                    host_vif.cb.address    = 'z;
                 end
-                default: `uvm_fatal("REG_ERR", "Not a valid Register Command");
+                default: begin `uvm_fatal("REG_ERR", "Not a valid Register Command");end
             endcase
         end
     endtask

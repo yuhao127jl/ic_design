@@ -3,11 +3,54 @@
 //-----------------------------------------
 +incdir+../../rtl/
 +incdir+../../sv/
-+incdir+/home/jieli/disk4/uvm_work/uvm_1p1d/uvm-1.1d/src
++incdir+../../sv/interface/
++incdir+../../sv/input_agent/
++incdir+../../sv/output_agent/
++incdir+../../sv/reset_agent/
++incdir+../../sv/host_ral_agent/
++incdir+/home/klin/work/uvm_work/uvm_11d/src/
 
-../../rtl/router.v
+//--------------------------
+// rtl
+//--------------------------
+../../rtl/router.sv
+
+//--------------------------
+// interface
+//--------------------------
+../../sv/interface/router_io.sv"
+../../sv/interface/reset_io.sv"
+../../sv/interface/host_io.sv"
+
+../../sv/input_agent/packet.sv"
+../../sv/input_agent/packet_sequence.sv"
+../../sv/input_agent/iMonitor.sv"
+../../sv/input_agent/driver.sv"
+../../sv/input_agent/input_agent.sv"
+
+../../sv/output_agent/oMonitor.sv"
+../../sv/output_agent/output_agent.sv"
+
+../../sv/reset_agent/reset_sequence.sv"
+../../sv/reset_agent/reset_driver.sv"
+../../sv/reset_agent/reset_monitor.sv"
+../../sv/reset_agent/reset_agent.sv"
+
+../../sv/host_ral_agent/ral_host_regmodel.sv"
+../../sv/host_ral_agent/host_sequence.sv"
+../../sv/host_ral_agent/host_driver.sv"
+../../sv/host_ral_agent/host_monitor.sv"
+../../sv/host_ral_agent/host_agent.sv"
+../../sv/host_ral_agent/reg_adapter.sv"
+
+../../sv/driver_rst_sequence.sv"
+../../sv/virtual_reset_sequence.sv"
+
+../../sv/scoreboard.sv"
+../../sv/router_env.sv"
+../../sv/router_test.sv"
+
 ../../sv/top.sv
-
 
 
 

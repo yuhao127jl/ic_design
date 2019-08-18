@@ -27,7 +27,7 @@ class reset_driver extends uvm_driver #(reset_tr);
 		forever 
 		begin
 			seq_item_port.get_next_item(req);
-			driver(req);
+			drive(req);
 			seq_item_port.item_done();
 		end
 	endtask

@@ -2,7 +2,7 @@
 class reset_monitor extends uvm_monitor;
 	virtual reset_io 	reset_vif;
 	uvm_analysis_port #(reset_tr) analysis_port;
-    uvm_event_reset_event = uvm_event_pool::get_global("reset");
+    uvm_event reset_event = uvm_event_pool::get_global("reset");
     
 	`uvm_component_utils(reset_monitor)
 
@@ -42,7 +42,7 @@ class reset_monitor extends uvm_monitor;
 	//-----------------------------------------//
     virtual task detect(reset_tr tr);
         @(reset_vif.reset_n);
-        assert(!$isunknown(reset_vif.reset_n);
+        assert(!$isunknown(reset_vif.reset_n));
         if(reset_vif.reset_n == 1'b0)
         begin
             tr.kind = reset_tr::ASSERT;

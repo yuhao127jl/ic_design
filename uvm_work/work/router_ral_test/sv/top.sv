@@ -2,9 +2,10 @@
 `timescale 1ns / 1ps
 
 //--------------------------
-// rtl
+// uvm lib
 //--------------------------
-`include "../rtl/router.sv"
+import uvm_pkg::*;
+`include "uvm_macros.svh"
 
 //--------------------------
 // interface
@@ -14,29 +15,34 @@
 `include "./interface/host_io.sv"
 
 //--------------------------
-// uvm lib
+// rtl
 //--------------------------
-import uvm_pkg::*;
-`include "uvm_macros.svh"
+`include "../rtl/router.sv"
+
 
 //--------------------------
 // uvm platform
 //--------------------------
-`include "./input_agent/packet.sv"
-`include "./input_agent/packet_sequence.sv"
-`include "./input_agent/iMonitor.sv"
-`include "./input_agent/driver.sv"
-`include "./input_agent/input_agent.sv"
+`include "input_agent/packet.sv"
+`include "input_agent/packet_sequence.sv"
+`include "input_agent/iMonitor.sv"
+`include "input_agent/driver.sv"
+`include "input_agent/input_agent.sv"
 
-`include "./output_agent/oMonitor.sv"
-`include "./output_agent/output_agent.sv"
+`include "output_agent/oMonitor.sv"
+`include "output_agent/output_agent.sv"
 
-`include "./host_ral_agent/host_sequence.sv"
-`include "./host_ral_agent/host_driver.sv"
-`include "./host_ral_agent/host_monitor.sv"
-`include "./host_ral_agent/host_agent.sv"
-`include "./host_ral_agent/reg_adapter.sv"
-`include "./host_ral_agent/ral_host_regmodel.sv"
+`include "reset_agent/reset_sequence.sv"
+`include "reset_agent/reset_driver.sv"
+`include "reset_agent/reset_monitor.sv"
+`include "reset_agent/reset_agent.sv"
+
+`include "host_ral_agent/ral_host_regmodel.sv"
+`include "host_ral_agent/host_sequence.sv"
+`include "host_ral_agent/host_driver.sv"
+`include "host_ral_agent/host_monitor.sv"
+`include "host_ral_agent/host_agent.sv"
+`include "host_ral_agent/reg_adapter.sv"
 
 
 `include "driver_rst_sequence.sv"
@@ -57,17 +63,26 @@ module top;
 
 bit sys_clk;
 
+
+//-----------------------------------------//
+// CLOCK period
+//-----------------------------------------//
+parameter   CLK_PERIOD = 100;
+
+
 //-----------------------------------------//
 // interface
 //-----------------------------------------//
-router_io inf(sys_clk);
-host_io   host(sys_clk);
+router_io router_inf(sys_clk);
+host_io   host_inf(sys_clk);
+reset_io  reset_inf(sys_clk);
 
 
 //-----------------------------------------//
 // Instance of DUT
 //-----------------------------------------//
-router  router_dut( inf, host);
+router  router_dut(.io(router_inf), 
+                   .host(host_inf));
 
 
 //-----------------------------------------//
@@ -86,6 +101,10 @@ initial begin
     // enable RAL coverage
     uvm_reg::include_coverage("*", UVM_CVR_ALL);
 
+    // virtual interface
+    uvm_config_db#(virtual router_io)::set(null,"uvm_test_top", "m_vif", router_inf);
+    uvm_config_db#(virtual host_io)::set(null,"uvm_test_top", "m_vif", host_inf);
+    uvm_config_db#(virtual reset_io)::set(null,"uvm_test_top", "m_vif", reset_inf);
     run_test();
 end
 

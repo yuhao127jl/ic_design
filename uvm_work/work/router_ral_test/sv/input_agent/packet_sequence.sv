@@ -1,6 +1,6 @@
 
 class packet_sequence_base extends uvm_sequence #(packet);
-    `uvm_objects_utils(packet_sequence_base)
+    `uvm_object_utils(packet_sequence_base)
 
 	function new(string name = "packet_sequence_base");
 		super.new(name);
@@ -12,7 +12,7 @@ class packet_sequence_base extends uvm_sequence #(packet);
 	virtual task pre_start();
 		if((get_parent_sequence()==null) && (starting_phase!=null))
 		begin
-			starting_phase.drop_objection(this);
+			starting_phase.raise_objection(this);
 		end
 	endtask
 
@@ -78,8 +78,7 @@ class packet_sequence extends packet_sequence_base;
 	task body();
 		repeat(item_cnt) 
 		begin
-			`uvm_do_with(req, {if(port_id==-1) sa inside {[0:15]};
-						 	   else sa = port_id;});
+			`uvm_do_with(req, {if(port_id==-1) sa inside {[0:15]}; else sa == port_id;});
 		end
 	endtask
 

@@ -7,7 +7,7 @@
 class reset_tr extends uvm_sequence_item;
     typedef enum {ASSERT, DEASSERT} kind_e;
     rand kind_e kind;
-    rand int unsiged cycles = 1;
+    rand int unsigned cycles = 1;
 
     `uvm_object_utils_begin(reset_tr)
         `uvm_field_enum(kind_e, kind, UVM_ALL_ON)
@@ -39,7 +39,7 @@ class reset_sequence extends uvm_sequence #(reset_tr);
 	virtual task pre_start();
 		if((get_parent_sequence()==null) && (starting_phase!=null))
 		begin
-			starting_phase.drop_objection(this);
+			starting_phase.raise_objection(this);
 		end
 	endtask
 

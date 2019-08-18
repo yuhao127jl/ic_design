@@ -54,7 +54,7 @@ class oMonitor extends uvm_monitor;
 	//-----------------------------------------//
 	virtual task get_packet(packet tr);
 		logic [7:0] datnum;
-		@(negedge router_vif.oMonClk.frameo_n[port_id]};
+		@(negedge router_vif.oMonClk.frameo_n[port_id]);
 
 		//------ Payload ------//
 		forever begin

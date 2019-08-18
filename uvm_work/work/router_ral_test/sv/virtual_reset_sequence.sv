@@ -5,7 +5,7 @@
 //
 //----------------------------------------------------------//
 class virtual_reset_sequencer extends uvm_sequencer;
-    `uvm_component_utils(virtual_reset_sequence)
+    `uvm_component_utils(virtual_reset_sequencer)
     packet_sequencer pkt_seqr[$];
     reset_sequencer r_seqr;
     host_sequencer h_seqr;
@@ -40,20 +40,20 @@ class virtual_reset_sequence extends uvm_sequence;
 	//-----------------------------------------//
 	virtual task body();
         fork
-            `uvm_do_on(r_req, p_sequencer.r_seqr);
+            `uvm_do_on(r_seq, p_sequencer.r_seqr);
             foreach(p_sequencer.pkt_seqr[i]) begin
                 int j = i;
                 fork 
                     begin
                         reset_event.wait_on();
-                        `uvm_do_on(d_req, p_sequencer.pkt_seqr[j]);
+                        `uvm_do_on(d_seq, p_sequencer.pkt_seqr[j]);
                     end
                 join_none
             end
 
             begin
                 reset_event.wait_on();
-                `uvm_do_on(h_req, p_sequencer.h_seqr);
+                `uvm_do_on(h_seq, p_sequencer.h_seqr);
             end
         join
     endtask
@@ -67,7 +67,6 @@ class virtual_reset_sequence extends uvm_sequence;
             starting_phase.drop_objection(this);
         end
     endtask
-
 
 
 

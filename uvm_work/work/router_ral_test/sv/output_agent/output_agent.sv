@@ -34,7 +34,7 @@ class output_agent extends uvm_agent;
     virtual function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
 
-        this.analysis_port = omon.analysis_port);
+        this.analysis_port = omon.analysis_port;
         //omon.analysis_port.connect(this.analysis_port);
     endfunction
 
@@ -44,7 +44,7 @@ class output_agent extends uvm_agent;
     virtual function void start_of_simulation_phase(uvm_phase phase);
         super.start_of_simulation_phase(phase);
 
-        `uvm_info("AGENT_CFG", $sformatf("Using port_id of %0d", port_id), UVM_MEDIUM);
+        `uvm_info("O_AGENT_CFG", $sformatf("Using port_id of %0d", port_id), UVM_MEDIUM);
     endfunction
 
 

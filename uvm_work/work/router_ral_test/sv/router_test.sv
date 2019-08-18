@@ -8,6 +8,9 @@ class router_test_base extends uvm_test;
     `uvm_component_utils(router_test_base)
 
     router_env env;
+    virtual router_io router_vif;
+    virtual host_io host_vif;
+    virtual reset_io reset_vif;
 
     // access to the command line processor 
     uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
@@ -24,15 +27,23 @@ class router_test_base extends uvm_test;
 
         env = router_env::type_id::create("env", this);
 
-        uvm_config_db#(virtual router_io)::set(this, "env.i_agent[*]", "m_vif", router_test_top.router_vif.agent_vif);
-        uvm_config_db#(virtual router_io)::set(this, "env.o_agent[*]", "m_vif", router_test_top.router_vif.agent_vif);
-        uvm_config_db#(virtual router_io)::set(this, "env.r_agent", "m_vif", router_test_top.reset_vif.agent_vif);
+        // get virtual interface
+        uvm_config_db#(virtual router_io)::get(this, "", "m_vif", router_vif);
+        uvm_config_db#(virtual host_io)::get(this, "", "m_vif", host_vif);
+        uvm_config_db#(virtual reset_io)::get(this, "", "m_vif", reset_vif);
 
-        // configure the host_agent to use the correct interface
-        uvm_config_db#(virtual host_io)::set(this, "env.h_agent", "m_vif", router_test_top.host_vif.agent_vif);
+        // set virtual interface --- router_io
+        uvm_config_db#(virtual router_io)::set(this, "env.i_agent[*]", "rt_iagt_vif", router_vif);
+        uvm_config_db#(virtual router_io)::set(this, "env.o_agent[*]", "rt_oagt_vif", router_vif);
+
+        // set virtual interface --- host_io
+        uvm_config_db#(virtual host_io)::set(this, "env.h_agent", "h_vif", host_vif);
+
+        // set virtual interface --- reset_io
+        uvm_config_db#(virtual reset_io)::set(this, "env.r_agent", "rst_vif", reset_vif);
 
         // setup the DPI HDL path
-        uvm_config_db#(string)::set(this, "env", "hdl_path", "router_test_top.dut");
+        uvm_config_db#(string)::set(this, "env", "hdl_path", "top.router_dut");
     endfunction
 
 	//-----------------------------------------//
@@ -48,7 +59,7 @@ class router_test_base extends uvm_test;
 	//-----------------------------------------//
 	// main phase
 	//-----------------------------------------//
-    virtual	task void main_phase(uvm_phase phase);
+    virtual	task main_phase(uvm_phase phase);
         uvm_objection objection;
 		super.main_phase(phase);
 
@@ -160,18 +171,18 @@ class test_ral_selftest extends router_test_base;
 	//-----------------------------------------//
 	// run phase
 	//-----------------------------------------//
-    virtual	task void run_phase(uvm_phase phase);
+    virtual	task run_phase(uvm_phase phase);
         phase.raise_objection(this, "Starting reset tests");
 
         v_reset_seq = virtual_reset_sequence::type_id::create("v_reset_seq", this);
-        v_reset_seq.start(env.v_reset_seqr);
+        v_reset_seq.start(env.v_rst_seqr);
         clp.get_arg_value("+seq=", seq_name);
-        $cast(selftest_seq, factory.create_object_by_name(seq_name);
+        $cast(selftest_seq, factory.create_object_by_name(seq_name));
         selftest_seq.model = env.regmodel;
         selftest_seq.start(env.h_agent.seqr);
         
         phase.drop_objection(this, "Done whit register tests");
-    endfunction
+    endtask
 
 endclass
 

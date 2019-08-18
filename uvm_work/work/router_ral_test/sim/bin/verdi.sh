@@ -11,9 +11,7 @@ para="";
 
 
 echo ""
-echo ""
-echo "\tVerid GUI"
-echo ""
+echo "**********************Verid GUI*********************"
 echo ""
 
 

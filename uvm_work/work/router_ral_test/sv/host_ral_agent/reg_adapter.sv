@@ -30,10 +30,10 @@ class reg_adapter extends uvm_reg_adapter;
 		rw.addr = tr.addr;
 		rw.data = tr.data;
 		case(tr.status)
-			host_tr::IS_OK	: rw_status = UVM_IS_OK;
-			host_tr::NOT_OK	: rw_status = UVM_NOT_OK;
-			host_tr::HAS_X	: rw_status = UVM_HAS_X;
-			default: `uvm_fatal("RAL_STATUS", $sformatf("Unsupported status : %p", tr.status));
+			host_tr::IS_OK	: rw.status = UVM_IS_OK;
+			host_tr::NOT_OK	: rw.status = UVM_NOT_OK;
+			host_tr::HAS_X	: rw.status = UVM_HAS_X;
+			default: begin `uvm_fatal("RAL_STATUS", $sformatf("Unsupported status : %p", tr.status)); end
 		endcase
 	endfunction
 

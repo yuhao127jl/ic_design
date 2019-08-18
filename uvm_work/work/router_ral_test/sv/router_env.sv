@@ -1,11 +1,4 @@
 
-//----------------------------------------------------------//
-//
-// include file
-//
-//----------------------------------------------------------//
-
-
 
 //----------------------------------------------------------//
 //
@@ -52,6 +45,7 @@ class router_env extends uvm_env;
         end
 
         uvm_config_db#(uvm_object_wrapper)::set(this, "v_rst_seqr.reset_phase", "default_sequence", virtual_reset_sequence::get_type());
+
         sb = scoreboard::type_id::create("sb", this);
 
         foreach(o_agent[i]) begin

@@ -54,7 +54,7 @@ class iMonitor extends uvm_monitor;
 	//-----------------------------------------//
 	virtual task get_packet(packet tr);
 		logic [7:0] datnum;
-		@(negedge router_vif.iMonClk.din[port_id]};
+		@(negedge router_vif.iMonClk.din[port_id]);
 
 		//------ Header ------//
 		for(int i=0; i<4; i++) begin

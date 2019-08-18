@@ -14,7 +14,7 @@ class packet extends uvm_sequence_item;
 		payload.size inside {[1:10]};
 	}
 
-	function new(string name = "packet")
+	function new(string name = "packet");
 		super.new(name);
 	endfunction
 
