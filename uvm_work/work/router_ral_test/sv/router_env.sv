@@ -4,13 +4,6 @@
 // include file
 //
 //----------------------------------------------------------//
-`include "./input_agent/input_agent.sv"
-`include "./reset_agent/reset_agent.sv"
-`include "driver_rst_sequence.sv"
-`include "./output_agent/output_agent.sv"
-`include "scoreboard.sv"
-`include "./host_ral_agent/host_agent.sv"
-`include "virtual_reset_sequence.sv"
 
 
 
