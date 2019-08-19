@@ -6,21 +6,21 @@
 //
 //----------------------------------------------------------//
 class router_env extends uvm_env;
-    reset_agent r_agent;
-    input_agent i_agent[16];
-    output_agent o_agent[16];
-    scoreboard sb;
-    virtual_reset_sequencer v_rst_seqr;
-    host_agent h_agent;
+    reset_agent                 r_agent;
+    input_agent                 i_agent[16];
+    output_agent                o_agent[16];
+    scoreboard                  sb;
+    virtual_reset_sequencer     v_rst_seqr;
+    host_agent                  h_agent;
 
-    ral_block_host_regmodel regmodel;
-    reg_adapter adapter;
+    ral_block_host_regmodel     regmodel;
+    reg_adapter                 adapter;
 
 	//-----------------------------------------//
 	// reg predictor
 	//-----------------------------------------//
     typedef uvm_reg_predictor #(host_tr) hreg_predictor;
-    hreg_predictor hreg_predt;
+    hreg_predictor              hreg_predt;
 
     `uvm_component_utils(router_env)
 

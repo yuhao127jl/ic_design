@@ -20,7 +20,7 @@ class host_tr extends uvm_sequence_item;
     `uvm_object_utils_end
 
 	constraint valid{
-		addr inside {'h0, 'h100, {'h1000:'h10ff}, {'h4000:'h4ffff}};
+		addr inside {'h0, 'h100, ['h1000:'h10ff], ['h4000:'h4ffff]};
 	}
 
 	function new(string name = "host_tr");
@@ -268,7 +268,7 @@ class host_ral_test_sequence extends host_ral_sequence_base;
 			`uvm_fatal("RAL_ERR", $sformatf("LOCK is %4h instead of 'hffff", data));
 
 		// 	
-		regmodel.LOCK.read(.status(status), .value('1), .path(UVM_FRONTDOOR), .parent(this));
+		regmodel.LOCK.write(.status(status), .value('1), .path(UVM_FRONTDOOR), .parent(this));
 		regmodel.LOCK.read(.status(status), .value(data), .path(UVM_BACKDOOR), .parent(this));
 		if(data != 'h0)
         begin

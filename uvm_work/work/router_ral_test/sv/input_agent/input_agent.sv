@@ -42,10 +42,10 @@ class input_agent extends uvm_agent;
         analysis_port = new("analysis_port", this);
 
         uvm_config_db#(int)::get(this, "", "port_id", port_id);
-		uvm_config_db#(virtual router_io)::get(this, "", "m_vif", router_vif);
+        uvm_config_db#(virtual router_io)::get(this, "", "rt_iagt_vif", router_vif);
 
         uvm_config_db#(int)::set(this, "*", "port_id", port_id);
-		uvm_config_db#(virtual router_io)::set(this, "*", "m_vif", router_vif);
+		uvm_config_db#(virtual router_io)::set(this, "*", "md_vif", router_vif);
     endfunction
 
 	//-----------------------------------------//

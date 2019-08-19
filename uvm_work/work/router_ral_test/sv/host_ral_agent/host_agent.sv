@@ -18,6 +18,7 @@ class host_agent extends uvm_agent;
 	host_sequencer					 seqr;
     host_driver                      driv;
     host_monitor                     mon;
+    virtual host_io                  host_vif; // virtual interface
 
     `uvm_component_utils(host_agent)
 
@@ -30,6 +31,12 @@ class host_agent extends uvm_agent;
 	//-----------------------------------------//
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
+
+        // get host_io interface 
+		uvm_config_db#(virtual host_io)::get(this, "", "h_vif", host_vif);
+
+        // set host_io interface
+		uvm_config_db#(virtual host_io)::set(this, "*", "md_vif", host_vif);
 
         if(is_active == UVM_ACTIVE) 
         begin

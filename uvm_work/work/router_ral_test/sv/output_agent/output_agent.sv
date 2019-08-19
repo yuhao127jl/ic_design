@@ -22,10 +22,10 @@ class output_agent extends uvm_agent;
         omon = oMonitor::type_id::create("omon", this);
 
         uvm_config_db#(int)::get(this, "", "port_id", port_id);
-		uvm_config_db#(virtual router_io)::get(this, "", "m_vif", router_vif);
+		uvm_config_db#(virtual router_io)::get(this, "", "rt_oagt_vif", router_vif);
 
         uvm_config_db#(int)::set(this, "*", "port_id", port_id);
-		uvm_config_db#(virtual router_io)::set(this, "*", "m_vif", router_vif);
+		uvm_config_db#(virtual router_io)::set(this, "*", "om_vif", router_vif);
     endfunction
 
 	//-----------------------------------------//

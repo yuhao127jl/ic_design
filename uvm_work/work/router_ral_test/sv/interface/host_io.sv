@@ -8,7 +8,7 @@ interface host_io(input logic clk);
   logic [15:0] address;
   wire  [15:0] data;
 
-  clocking cb @(posedge clk);
+  clocking mst @(posedge clk);
     inout   data;
     output  address;
     output  wr_n;
@@ -17,7 +17,7 @@ interface host_io(input logic clk);
 
   clocking mon @(posedge clk);
     input  data;
-    input  address;
+    inout  address;
     input  wr_n;
     input  rd_n;
   endclocking

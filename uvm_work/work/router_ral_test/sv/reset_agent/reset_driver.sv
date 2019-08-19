@@ -13,7 +13,7 @@ class reset_driver extends uvm_driver #(reset_tr);
 	//-----------------------------------------//
 	virtual function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-		uvm_config_db#(virtual reset_io)::get(this, "", "m_vif", reset_vif);
+		uvm_config_db#(virtual reset_io)::get(this, "", "rmd_vif", reset_vif);
 		if(reset_vif==null)
 		begin
 			`uvm_fatal("CFG_ERROR", "Interface for reset driver not set");

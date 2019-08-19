@@ -23,7 +23,7 @@ class driver extends uvm_driver #(packet);
 		begin
 			`uvm_fatal("CFG_ERROR", $sformatf("port_id must be {-1, [0:15]}, not %0d!", port_id));
 		end
-		uvm_config_db#(virtual router_io)::get(this, "", "m_vif", router_vif);
+		uvm_config_db#(virtual router_io)::get(this, "", "md_vif", router_vif);
 		if(router_vif==null)
 		begin
 			`uvm_fatal("CFG_ERROR", "Interface for Driver not set");

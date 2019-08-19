@@ -1,11 +1,16 @@
 
+//----------------------------------------------------------//
+//
+// driver_rst_sequence
+//
+//----------------------------------------------------------//
 class driver_rst_sequence extends uvm_sequence #(packet);
 	virtual router_io router_vif;
 	int		port_id = -1;
 
-	`uvm_component_utils_begin(driver_rst_sequence)
+	`uvm_object_utils_begin(driver_rst_sequence)
 		`uvm_field_int(port_id, UVM_DEFAULT | UVM_DEC)
-	`uvm_component_utils_end
+	`uvm_object_utils_end
 
 	function new(string name = "driver_rst_sequence");
 		super.new(name);
@@ -19,15 +24,15 @@ class driver_rst_sequence extends uvm_sequence #(packet);
 		begin
 			starting_phase.raise_objection(this);
 		end
-		uvm_config_db#(int)::get(get_sequencer(), "", "port_id", port_id);
 
+		uvm_config_db#(int)::get(get_sequencer(), "", "port_id", port_id);
 		if(!(port_id inside {-1, [0:15]}))
 		begin
 			`uvm_fatal("CFG_ERROR", $sformatf("port_id must be {-1, [0:15]}, not %0d!", port_id));
 		end
 		`uvm_info("DRV_RST_SEQ", $sformatf("Using port_id = %0d", port_id), UVM_MEDIUM);
 
-		uvm_config_db#(virtual router_io)::get(get_sequencer(), "", "m_vif", router_vif);
+		uvm_config_db#(virtual router_io)::get(get_sequencer(), "", "v_rst_vif", router_vif);
 		if(router_vif==null)
 		begin
 			`uvm_fatal("CFG_ERROR", "Interface for Driver Rst Sequence not set");

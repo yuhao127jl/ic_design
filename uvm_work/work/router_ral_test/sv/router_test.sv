@@ -35,6 +35,7 @@ class router_test_base extends uvm_test;
         // set virtual interface --- router_io
         uvm_config_db#(virtual router_io)::set(this, "env.i_agent[*]", "rt_iagt_vif", router_vif);
         uvm_config_db#(virtual router_io)::set(this, "env.o_agent[*]", "rt_oagt_vif", router_vif);
+        uvm_config_db#(virtual router_io)::set(this, "env.v_rst_seqr.*", "v_rst_vif", router_vif);
 
         // set virtual interface --- host_io
         uvm_config_db#(virtual host_io)::set(this, "env.h_agent", "h_vif", host_vif);
@@ -131,7 +132,7 @@ class test_host_ral extends router_test_base;
     virtual	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
 
-        // turn off all sequencer execution at the configure&mainphase
+        // turn off all sequencer execution at the configure & main phase
         uvm_config_db#(uvm_object_wrapper)::set(this, "env.*.configure_phase", "default_sequence", null);
         uvm_config_db#(uvm_object_wrapper)::set(this, "env.*.main_phase", "default_sequence", null);
 

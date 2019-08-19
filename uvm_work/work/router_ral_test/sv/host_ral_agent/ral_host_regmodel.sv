@@ -160,9 +160,9 @@ class ral_block_host_regmodel extends uvm_reg_block;
         end
 
         this.RAM = ral_mem_RAM::type_id::create("RAM", , get_full_name());
-        this.RAM.configure(this, "RAM");
+        this.RAM.configure(this, "ram");
         this.RAM.build();
-        this.default_map.add_reg(this.RAM, `UVM_REG_ADDR_WIDTH'h4000, "RW", 0);
+        this.default_map.add_mem(this.RAM, `UVM_REG_ADDR_WIDTH'h4000, "RW", 0);
     endfunction
 
     `uvm_object_utils(ral_block_host_regmodel)

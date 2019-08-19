@@ -25,7 +25,7 @@ class iMonitor extends uvm_monitor;
 			`uvm_fatal("CFG_ERROR", $sformatf("port_id must be {-1, [0:15]}, not %0d!", port_id));
 		end
 	
-		uvm_config_db#(virtual router_io)::get(this, "", "m_vif", router_vif);
+		uvm_config_db#(virtual router_io)::get(this, "", "md_vif", router_vif);
 		if(router_vif==null)
 		begin
 			`uvm_fatal("CFG_ERROR", "Interface for Driver not set");
@@ -85,7 +85,7 @@ class iMonitor extends uvm_monitor;
 			end
 			else
 			begin
-				`uvm_fatal("Header_Error", $sformatf("Frame not zero", i));
+				`uvm_fatal("Header_Error", $sformatf("Frame %0d not zero", i));
 			end
 		end
 
