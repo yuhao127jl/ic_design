@@ -105,6 +105,8 @@ initial begin
     uvm_config_db#(virtual router_io)::set(null,"uvm_test_top", "m_vif", router_inf);
     uvm_config_db#(virtual host_io)::set(null,"uvm_test_top", "m_vif", host_inf);
     uvm_config_db#(virtual reset_io)::set(null,"uvm_test_top", "m_vif", reset_inf);
+
+    //run test
     run_test();
 end
 

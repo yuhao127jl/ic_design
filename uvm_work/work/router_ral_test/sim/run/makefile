@@ -26,7 +26,7 @@ VCS =   vcs -sverilog -fsdb_old -timescale=1ns/1ns \
 		+incdir+../../rtl/ \
 		../../sv/top.sv  \
 
-SIMV= ./simv +UVM_TESTNAME=test_host_ral +UVM_VERBOSITY=$(UVM_VERBOSITY) -l vcs.log
+SIMV= ./simv +UVM_TESTNAME=router_test_base +UVM_VERBOSITY=$(UVM_VERBOSITY) -l vcs.log
 
 clean:
 	rm -rf *~ core csrc simv* vc_hdrs.h ucli.key urg* *.log

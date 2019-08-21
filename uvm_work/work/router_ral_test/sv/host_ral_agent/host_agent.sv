@@ -34,9 +34,13 @@ class host_agent extends uvm_agent;
 
         // get host_io interface 
 		uvm_config_db#(virtual host_io)::get(this, "", "h_vif", host_vif);
+		if(host_vif==null)
+		begin
+			`uvm_fatal("CFG_ERROR", "DUT Interface for host_agent not set");
+		end
 
         // set host_io interface
-		uvm_config_db#(virtual host_io)::set(this, "*", "md_vif", host_vif);
+		uvm_config_db#(virtual host_io)::set(this, "*", "h_vif", host_vif);
 
         if(is_active == UVM_ACTIVE) 
         begin

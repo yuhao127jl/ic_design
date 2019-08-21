@@ -23,6 +23,7 @@ class driver extends uvm_driver #(packet);
 		begin
 			`uvm_fatal("CFG_ERROR", $sformatf("port_id must be {-1, [0:15]}, not %0d!", port_id));
 		end
+
 		uvm_config_db#(virtual router_io)::get(this, "", "md_vif", router_vif);
 		if(router_vif==null)
 		begin
@@ -70,6 +71,7 @@ class driver extends uvm_driver #(packet);
 		for(int i=0; i<4; i++)
 		begin
 			router_vif.drvClk.din[tr.sa] <= tr.da[i];
+            `uvm_info("Put_Address",$sformatf("Din is:%0d", tr.da[i]) , UVM_MEDIUM);
 			@(router_vif.drvClk);
 		end
 	endtask
@@ -77,6 +79,7 @@ class driver extends uvm_driver #(packet);
 	virtual task send_pad(packet tr);
 		router_vif.drvClk.din[tr.sa] <= 1'b1;
 		router_vif.drvClk.valid_n[tr.sa] <= 1'b1;
+        `uvm_info("Put_pad","Din and valid_n is one", UVM_MEDIUM);
 		repeat(5) @(router_vif.drvClk);
 	endtask
 

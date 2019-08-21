@@ -32,7 +32,8 @@ class reset_agent extends uvm_agent;
         `uvm_info("RST_CFG", $sformatf("Reset agent %s setting for is_active is: %p", this.get_name(), is_active), UVM_MEDIUM);
 
 		uvm_config_db#(virtual reset_io)::get(this, "", "rst_vif", reset_vif);
-		uvm_config_db#(virtual reset_io)::set(this, "*", "rmd_vif", reset_vif);
+
+		uvm_config_db#(virtual reset_io)::set(this, "*", "rst_vif", reset_vif);
      
         if(is_active == UVM_ACTIVE) 
         begin

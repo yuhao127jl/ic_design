@@ -43,6 +43,7 @@ class iMonitor extends uvm_monitor;
 		forever begin
 			tr = packet::type_id::create("tr", this);
 			tr.sa = this.port_id;
+			`uvm_info("Start_get_Packet", {"\n", tr.sprint()}, UVM_MEDIUM);
 			get_packet(tr);
 			`uvm_info("Got_Input_Packet", {"\n", tr.sprint()}, UVM_MEDIUM);
 			analysis_port.write(tr);
@@ -56,15 +57,16 @@ class iMonitor extends uvm_monitor;
 		logic [7:0] datnum;
 		@(negedge router_vif.iMonClk.din[port_id]);
 
-		//------ Header ------//
+		//------ Address ------//
 		for(int i=0; i<4; i++) begin
 			if(!router_vif.iMonClk.frame_n[port_id]) 
 			begin
 				tr.da[i] = router_vif.iMonClk.din[port_id];
+                `uvm_info("Got_Address",$sformatf("Din is : %0d", tr.da[i]) , UVM_MEDIUM);
 			end
 			else
 			begin
-				`uvm_fatal("Header_Error", $sformatf("@ Header cycle %0d, Frame not zero", i));
+				`uvm_fatal("Address_Error", $sformatf("@ Header cycle %0d, Frame not zero", i));
 			end
 			@(router_vif.iMonClk);
 		end
@@ -77,6 +79,7 @@ class iMonitor extends uvm_monitor;
 				begin
 					@(router_vif.iMonClk);
 					continue;
+                    `uvm_info("Got_Header","Din has done", UVM_MEDIUM);
 				end
 				else
 				begin

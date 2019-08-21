@@ -143,7 +143,7 @@ class ral_block_host_regmodel extends uvm_reg_block;
 
         this.LOCK = ral_reg_LOCK::type_id::create("LOCK", , get_full_name());
         this.LOCK.configure(this, null, "");
-        this.HOST_ID.build();
+        this.LOCK.build();
         this.LOCK.add_hdl_path('{'{"lock", -1, -1}});
         this.default_map.add_reg(this.LOCK, `UVM_REG_ADDR_WIDTH'h100, "RW", 0);
 
