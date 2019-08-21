@@ -1,0 +1,5 @@
+# please replace [path] with the path to your files,
+# e.g., /home/mueller/downloads
+
+LOADPATH="[path]/opendvb-0.4//:"
+

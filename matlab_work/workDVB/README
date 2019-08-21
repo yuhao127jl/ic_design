@@ -1,0 +1,46 @@
+Open-DVB
+========
+
+Open-DVB is an open implementation of digital video broadcasting (DVB).
+The development takes place at Vodafone Chair for Mobile Communications 
+Systems at Technische Universität Dresden. 
+It is distributed under the BSD license (see LICENSE).
+
+The purpose of this application is to serve as a benchmark for the MOUSE 
+compiler system.
+
+Currently, the signal processing portion of terrestrial transmission (DVB-T) 
+according to ETSI standard EN 300 744 V1.4.1 is implemented. The system is 
+able to send and receive with 2k carriers in 16-QAM mode. It runs under 
+Matlab, Octave, and our Octave-Frontend.
+
+For more information, please look at:
+http://www.radionetworkprocessor.com/opendvb.html
+	
+# Description
+
+Sample MPEG-2 transport streams for testing the algorithms can be found here .
+
+Installation Instructions
+
+Unpack the code. The distribution contains the subdirectories called 'dvbt', 'kammeyer', 'common', 'octave', 'matlab', and 'ref'. The sample transport streams create additional subdirectories in 'ref'.
+For execution on Matlab, place 'dvbt', 'kammeyer', 'common', and 'matlab' on your search path. You may use the file 'startup.m' as a template.
+For execution on Octave or the Octave-Frontend, place 'dvbt', 'kammeyer', 'common', 'octave' on your search path. Edit the file '.octaverc'.
+Edit the file 'dvbt/dump_open.m'. 'ref_dir' is the location where testbenches look for reference data, it should point to the 'ref' directory included in the distribution. 'test_dir' is the place where many dump files will be created.
+
+Now, you can run the following testbenches:
+
+Testbench Name Description :
+
+dvbt_tb.m					The entire DVB-T send and receive pipeline. This test requires the MPEG transport streams as test data.
+scrambler_tb.m				Tests the scrambler/descrambler subsystem.
+rs_tb.m						Tests the Reed/Solomon  encoder and decoder.
+outer_interleaver_tb.m		Tests the outer interleaver/deinterleaver, a convolutional interleaving subsystem.
+convolutional_tb.m			Tests the convolutional coding subsystem. It works with Kammeyer's Viterbi implementation .
+inner_interleaver_tb.m		Tests the inner interleaver/deinterleaver, a block interleaving subsystem.
+map_tb.m					Test the mapper/demapper. It performs QAM coding.
+reference_signals_tb.m		Tests the insertion and removal of reference signals.
+ofdm_tb.m					Tests the OFDM encoder/decoder.
+gf_tb.m						Tests Galois arithmetics used by Reed/Solomon.
+scrambler_prbs_tb.m			Checks the pseudo-random bit sequence generator used by the scrambler.
+
