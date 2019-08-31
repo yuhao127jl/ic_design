@@ -55,7 +55,7 @@ class iMonitor extends uvm_monitor;
 	//-----------------------------------------//
 	virtual task get_packet(packet tr);
 		logic [7:0] datnum;
-		@(negedge router_vif.iMonClk.din[port_id]);
+		@(negedge router_vif.iMonClk.frame_n[port_id]);
 
 		//------ Address ------//
 		for(int i=0; i<4; i++) begin
@@ -78,8 +78,8 @@ class iMonitor extends uvm_monitor;
 				if(router_vif.iMonClk.valid_n[port_id] && router_vif.iMonClk.din[port_id])
 				begin
 					@(router_vif.iMonClk);
-					continue;
                     `uvm_info("Got_Header","Din has done", UVM_MEDIUM);
+					continue;
 				end
 				else
 				begin
@@ -97,10 +97,12 @@ class iMonitor extends uvm_monitor;
 			for(int i=0; i<8; i=i) begin
 				if(!router_vif.iMonClk.valid_n[port_id]) 
 				begin
-					if(router_vif.busy_n[port_id]) 
+                    `uvm_info("Got_Payload","busy_n check", UVM_MEDIUM);
+					if(router_vif.iMonClk.busy_n[port_id]) 
 					begin
 						datnum[i++] = router_vif.iMonClk.din[port_id];
 						if(i==8) tr.payload.push_back(datnum);
+                        `uvm_info("Got_Payload","Payload has done", UVM_MEDIUM);
 					end
 					else 	
 						`uvm_fatal("Payload_Error", "Busy & Valid conflict");

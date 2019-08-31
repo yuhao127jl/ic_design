@@ -32,7 +32,7 @@ class driver_rst_sequence extends uvm_sequence #(packet);
 		end
 		`uvm_info("DRV_RST_SEQ", $sformatf("Using port_id = %0d", port_id), UVM_MEDIUM);
 
-		uvm_config_db#(virtual router_io)::get(get_sequencer(), "", "v_rst_vif", router_vif);
+		uvm_config_db#(virtual router_io)::get(get_sequencer(), "", "drv_rst_vif", router_vif);
 		if(router_vif==null)
 		begin
 			`uvm_fatal("CFG_ERROR", "Interface for Driver Rst Sequence not set");

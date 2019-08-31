@@ -32,6 +32,44 @@ class driver extends uvm_driver #(packet);
 	endfunction
 
 	//-----------------------------------------//
+	// pre reset phase
+	//-----------------------------------------//
+    virtual task pre_reset_phase(uvm_phase phase);
+        super.pre_reset_phase(phase);
+        `uvm_info("TRACE", $sformatf("%m"), UVM_HIGH);
+        phase.raise_objection(this);
+        if (port_id == -1) begin
+            router_vif.drvClk.frame_n <= 'x;
+            router_vif.drvClk.valid_n <= 'x;
+            router_vif.drvClk.din <= 'x;
+        end else begin
+            router_vif.drvClk.frame_n[port_id] <= 'x;
+            router_vif.drvClk.valid_n[port_id] <= 'x;
+            router_vif.drvClk.din[port_id] <= 'x;
+        end
+        phase.drop_objection(this);
+    endtask: pre_reset_phase
+
+	//-----------------------------------------//
+	// reset phase
+	//-----------------------------------------//
+    virtual task reset_phase(uvm_phase phase);
+        super.reset_phase(phase);
+        `uvm_info("TRACE", $sformatf("%m"), UVM_HIGH);
+        phase.raise_objection(this);
+        if (port_id == -1) begin
+            router_vif.drvClk.frame_n <= '1;
+            router_vif.drvClk.valid_n <= '1;
+            router_vif.drvClk.din <= '0;
+        end else begin
+            router_vif.drvClk.frame_n[port_id] <= '1;
+            router_vif.drvClk.valid_n[port_id] <= '1;
+            router_vif.drvClk.din[port_id] <= '0;
+        end
+        phase.drop_objection(this);
+    endtask: reset_phase
+
+	//-----------------------------------------//
 	// start_of_simulation_phase
 	//-----------------------------------------//
 	function void start_of_simulation_phase(uvm_phase phase);
@@ -84,10 +122,17 @@ class driver extends uvm_driver #(packet);
 	endtask
 
 	virtual task send_payload(packet tr);
-		while(!router_vif.drvClk.busy_n[tr.sa]) @(router_vif.drvClk);
+        `uvm_info("Put_Payload",$sformatf("busy_n is %0d",router_vif.drvClk.busy_n[tr.sa]), UVM_MEDIUM);
+		while(router_vif.drvClk.busy_n[tr.sa]==1'b0) 
+        begin
+            @(router_vif.drvClk);
+        end
 		foreach(tr.payload[index])
 		begin
 			datnum = tr.payload[index];
+
+            `uvm_info("Put_Payload",$sformatf("payload size is %0d",$size(tr.payload,1)), UVM_MEDIUM);
+            `uvm_info("Put_Payload",$sformatf("payload is %0d",datnum), UVM_MEDIUM);
 			for(int i=0; i<$size(tr.payload,2); i++)
 			begin
 				router_vif.drvClk.din[tr.sa] <= datnum[i];

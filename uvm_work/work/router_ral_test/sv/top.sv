@@ -45,7 +45,7 @@ import uvm_pkg::*;
 `include "host_ral_agent/reg_adapter.sv"
 
 
-`include "driver_rst_sequence.sv"
+//`include "driver_rst_sequence.sv"
 `include "virtual_reset_sequence.sv"
 
 `include "scoreboard.sv"

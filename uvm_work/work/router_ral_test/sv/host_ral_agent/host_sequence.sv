@@ -56,7 +56,7 @@ class host_sequence_base extends uvm_sequence #(host_tr);
 			starting_phase.raise_objection(this);
 		end
 
-		if(uvm_config_db#(virtual host_io)::get(p_seqr.get_parent(), "", "m_vif", host_vif))
+		if(uvm_config_db#(virtual host_io)::get(p_seqr.get_parent(), "", "h_vif", host_vif))
 		begin
 			`uvm_info("HOST_SEQ_CFG", "Has access to host interface", UVM_HIGH);
 		end

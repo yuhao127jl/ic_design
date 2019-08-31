@@ -33,6 +33,7 @@ class reset_monitor extends uvm_monitor;
 		forever begin
 			tr = reset_tr::type_id::create("tr", this);
 			detect(tr);
+            `uvm_info("RST_MON", $sformatf("monitor has done, rst_n = %0d", reset_vif.reset_n), UVM_MEDIUM);
 			analysis_port.write(tr);
         end
     endtask
@@ -41,9 +42,9 @@ class reset_monitor extends uvm_monitor;
 	// detect
 	//-----------------------------------------//
     virtual task detect(reset_tr tr);
-        @(reset_vif.reset_n);
-        assert(!$isunknown(reset_vif.reset_n));
-        if(reset_vif.reset_n == 1'b0)
+        @(reset_vif.mon);
+        assert(!$isunknown(reset_vif.mon.reset_n));
+        if(reset_vif.mon.reset_n == 1'b0)
         begin
             tr.kind = reset_tr::ASSERT;
             reset_event.trigger();

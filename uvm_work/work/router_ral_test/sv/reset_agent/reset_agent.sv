@@ -32,6 +32,10 @@ class reset_agent extends uvm_agent;
         `uvm_info("RST_CFG", $sformatf("Reset agent %s setting for is_active is: %p", this.get_name(), is_active), UVM_MEDIUM);
 
 		uvm_config_db#(virtual reset_io)::get(this, "", "rst_vif", reset_vif);
+		if(reset_vif==null)
+		begin
+			`uvm_fatal("CFG_ERROR", "Interface for RESET not set");
+		end
 
 		uvm_config_db#(virtual reset_io)::set(this, "*", "rst_vif", reset_vif);
      

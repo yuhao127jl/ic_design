@@ -28,6 +28,7 @@ class reset_driver extends uvm_driver #(reset_tr);
 		begin
 			seq_item_port.get_next_item(req);
 			drive(req);
+            `uvm_info("RST_DRV", $sformatf("drive has done, rst_n = %0d", reset_vif.reset_n), UVM_MEDIUM);
 			seq_item_port.item_done();
 		end
 	endtask
@@ -38,7 +39,7 @@ class reset_driver extends uvm_driver #(reset_tr);
 	virtual task drive(reset_tr tr);
 		if(tr.kind == reset_tr::ASSERT) 
 		begin
-			reset_vif.reset_n = 1'b0;
+			reset_vif.reset_n = '0;
 			repeat(tr.cycles) @(reset_vif.mst);
 		end
 		else

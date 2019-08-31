@@ -35,7 +35,7 @@ class router_test_base extends uvm_test;
         // set virtual interface --- router_io
         uvm_config_db#(virtual router_io)::set(this, "env.i_agent[*]", "rt_iagt_vif", router_vif);
         uvm_config_db#(virtual router_io)::set(this, "env.o_agent[*]", "rt_oagt_vif", router_vif);
-        uvm_config_db#(virtual router_io)::set(this, "env.v_rst_seqr.*", "v_rst_vif", router_vif);
+        //uvm_config_db#(virtual router_io)::set(this, "env.v_rst_seqr", "v_rst_vif", router_vif);
 
         // set virtual interface --- host_io
         uvm_config_db#(virtual host_io)::set(this, "env.h_agent", "h_vif", host_vif);

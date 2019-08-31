@@ -48,7 +48,7 @@ class reset_sequence extends uvm_sequence #(reset_tr);
 	//-----------------------------------------//
     virtual task body();
         `uvm_do_with(req, {kind == DEASSERT; cycles == 2;});
-        `uvm_do_with(req, {kind == ASSERT; cycles == 1;});
+        `uvm_do_with(req, {kind == ASSERT; cycles == 3;});
         `uvm_do_with(req, {kind == DEASSERT; cycles == 15;});
     endtask
 
