@@ -1,0 +1,67 @@
+@verdi rc file Version 1.0
+[KeyNote]
+Line1 = Automatic Backup 0
+[TestBench]
+ConstrViewShow = 0
+InherViewShow = 0
+FSDBMsgShow = 0
+AnnotationShow = 0
+[hb]
+viewport = 706 226 1920 980 392 681 392 1918
+activeNode = "top.dut"
+activeScope = "top.dut"
+activeFile = "../../rtl/router.v#$#1"
+interactiveMode = False
+viewType = Source
+simulatorMode = False
+postSimFile = /home/klin/work/uvm_work/uvm_work/router_lab_all/sim/router_sim/router.fsdb
+sourceBeginLine = 7
+baMode = False
+srcLineNum = True
+syncSignal = False
+syncTime = 570
+traceMode = Hierarchical
+showTraceInSchema = True
+paMode = False
+funcMode = False
+traceCrossHier = True
+DnDtraceCrossHierOnly = True
+traceIncTopPort = False
+leadingZero = False
+signalPane = False
+Scope1 = "top.dut"
+Scope2 = "top.inf"
+Scope3 = "rtslicef"
+rangeSelection = 22 22 1 1 62 63
+sdfCheckUndef = FALSE
+[hb.sourceTab.1]
+scope = top.dut
+File = /home/klin/work/uvm_work/uvm_work/router_lab_all/rtl/router.v#$#1
+Line = 8
+[imp.design1]
+dbEnum =  oh
+invokeDir = /home/klin/work/uvm_work/uvm_work/router_lab_all/sim/router_sim
+design = DebussyLib
+hostCommand = hostCommand -2005 -sv +define+ /home/jieli/disk4/uvm_work/uvm_1p1d/uvm-1.1d/src/uvm.sv /home/jieli/disk4/uvm_work/uvm_1p1d/uvm-1.1d/src/dpi/uvm_dpi.cc -CFLAGS +systemverilogext+sv +verilog2001ext+v -f ../bin/rtl.flist
+[nMemoryManager]
+FsdbFile = /home/klin/work/uvm_work/uvm_work/router_lab_all/sim/router_sim/router.fsdb
+UserActionNum = 0
+nMemWindowNum = 0
+[wave.0]
+viewPort = 2 56 1920 980 299 68
+SessionFile = /home/klin/work/uvm_work/uvm_work/router_lab_all/sim/router_sim/verdiLog/novas_autosave.ses.wave.0
+displayGrid = FALSE
+hierarchicalName = FALSE
+snap = TRUE
+displayLeadingZeros = FALSE
+fixDelta = FALSE
+displayCursorMarker = FALSE
+autoUpdate = FALSE
+highlightGlitchs = FALSE
+waveformSync = FALSE
+displayErrors = TRUE
+displayMsgSymbols = TRUE
+showMsgDescriptions = TRUE
+autoFit = FALSE
+displayDeltaY = FALSE
+centerCursor = FALSE
