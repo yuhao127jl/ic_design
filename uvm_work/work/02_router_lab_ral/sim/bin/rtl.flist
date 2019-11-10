@@ -3,9 +3,9 @@
 //-----------------------------------------
 +incdir+../../rtl/
 +incdir+../../sv/
-+incdir+/home/jieli/disk4/uvm_work/uvm_1p1d/uvm-1.1d/src
+//+incdir+/home/jieli/disk4/uvm_work/uvm_1p1d/uvm-1.1d/src
 
-//../../rtl/router.v
+//../../rtl/router.sv
 ../../sv/top.sv
 
 

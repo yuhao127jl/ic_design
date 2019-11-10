@@ -1,11 +1,12 @@
 
+
 //-------------------------------------------------------------------------------//
 //
 // RTL & Interface
 //
 //-------------------------------------------------------------------------------//
-`include "router_io.sv"
-`include "host_io.sv"
+`include "../rtl/host_io.sv"
+`include "../rtl/router_io.sv"
 `include "../rtl/router.sv"
 
 
@@ -23,6 +24,7 @@ import uvm_pkg::*;
 // Platform
 //
 //-------------------------------------------------------------------------------//
+
 `include "my_transaction.sv"
 `include "my_sequence.sv"
 //  `include "my_sequence_lib.sv"

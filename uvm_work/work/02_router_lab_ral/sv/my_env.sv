@@ -148,7 +148,7 @@ class my_env_add_ral extends uvm_env;
         regmodel.set_hdl_path_root(hdl_path);
     end
 
-    uvm_config_db#(ral_block_host_regmodel)::set(this, h_agent.get_name(), "regmodel", regmodel);
+    uvm_config_db#(ral_block_host_regmodel)::set(this, h_agent.get_name (), "regmodel", regmodel);
         
   endfunction
 
