@@ -45,7 +45,7 @@ class ral_reg_LOCK extends uvm_reg;
 	//-----------------------------------------//
 	virtual function void build();
         this.LOCK = uvm_reg_field::type_id::create("LOCK", ,get_full_name());
-        this.LOCK.configure(this, 16, 0, "W1C", 0, 16'h0000, 1, 0, 1);
+        this.LOCK.configure(this, 16, 0, "W1C", 0, 16'hffff, 1, 0, 1);
 
     endfunction
 

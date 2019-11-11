@@ -14,7 +14,8 @@ class host_driver extends uvm_driver #(host_tr);
     virtual	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
         
-		if(!uvm_config_db#(virtual host_io)::get(this, "", "h_vif", host_vif))
+		uvm_config_db#(virtual host_io)::get(this, "", "h_vif", host_vif);
+		if(host_vif==null)
 		begin
 			`uvm_fatal("CFG_ERROR", "Interface for DUT host not set");
 		end

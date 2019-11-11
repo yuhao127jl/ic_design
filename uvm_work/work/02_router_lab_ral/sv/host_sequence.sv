@@ -257,8 +257,8 @@ class host_ral_test_sequence extends host_ral_sequence_base;
 
 		// 	
 		regmodel.LOCK.read(.status(status), .value(data), .path(UVM_BACKDOOR), .parent(this));
-		//if(data != 'hffff)
-		//	`uvm_fatal("RAL_ERR", $sformatf("LOCK is %4h instead of 'hffff", data));
+		if(data != 'hffff)
+			`uvm_fatal("RAL_ERR", $sformatf("LOCK is %4h instead of 'hffff", data));
 
 		// 	
 		regmodel.LOCK.write(.status(status), .value('1), .path(UVM_FRONTDOOR), .parent(this));

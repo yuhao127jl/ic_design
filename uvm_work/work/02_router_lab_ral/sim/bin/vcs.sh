@@ -54,17 +54,18 @@ vcs \
     +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR \
     $UVM_HOME/src/uvm_pkg.sv \
     +incdir+$UVM_HOME/src $UVM_HOME/src/uvm.sv $UVM_HOME/src/dpi/uvm_dpi.cc -CFLAGS -DVCS \
-    +UVM_TESTNAME=my_test \
+    +UVM_TESTNAME=my_test_add_ral \
     +UVM_VERBOSITY=$UVM_VERBOSITY \
 	+neg_tchk \
 	-negdelay \
 	-lca \
+	+sdfverbose \
 	-sverilog \
     -fsdb_old \
-	-f $file_list \
 	+define+$para \
 	-timescale=1ns/1ps \
 	-debug_all \
+	-f $file_list \
 	-l vcs.log
 
 

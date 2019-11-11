@@ -48,14 +48,13 @@ class host_agent extends uvm_agent;
 		//uvm_config_db#(virtual host_io)::set(this, "*", "h_vif", m_agent_cfg.h_vif);
 
         //is_active = m_agent_cfg.is_active;
-        if(m_agent_cfg.is_active == UVM_ACTIVE) 
-        begin
-          seqr = host_sequencer::type_id::create("seqr", this);
-          driv = host_driver::type_id::create("driv", this);
-          uvm_config_db#(virtual host_io)::set(this, "driv", "h_vif", m_agent_cfg.h_vif);
-          $display("host io ---> host_driver ");
-          uvm_config_db#(virtual host_io)::set(this, "seqr", "h_vif", m_agent_cfg.h_vif);
-        end
+        //if(is_active == UVM_ACTIVE) 
+        //begin
+            seqr = host_sequencer::type_id::create("seqr", this);
+            driv = host_driver::type_id::create("driv", this);
+            uvm_config_db#(virtual host_io)::set(this, "driv", "h_vif", m_agent_cfg.h_vif);
+            uvm_config_db#(virtual host_io)::set(this, "seqr", "h_vif", m_agent_cfg.h_vif);
+        //end
 
         mon = host_monitor::type_id::create("mon", this);
         uvm_config_db#(virtual host_io)::set(this, "mon", "h_vif", m_agent_cfg.h_vif);
@@ -67,14 +66,13 @@ class host_agent extends uvm_agent;
 	//-----------------------------------------//
     virtual function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
-        if(m_agent_cfg.is_active == UVM_ACTIVE) 
-        begin
-          driv.seq_item_port.connect(seqr.seq_item_export);
-        end
+        //if(is_active == UVM_ACTIVE) 
+        //begin
+            driv.seq_item_port.connect(seqr.seq_item_export);
+        //end
 
         mon.analysis_port.connect(this.analysis_port);
 	endfunction
 
 
 endclass
-
