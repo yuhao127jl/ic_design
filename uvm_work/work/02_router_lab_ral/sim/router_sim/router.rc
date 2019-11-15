@@ -1,0 +1,99 @@
+Magic 271485
+Revision Verdi3_2012.10
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 51 1920 980 240 66
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / -e interfacePort "" "/home/klin/work/uvm_work/uvm_work/02_router_lab_ral/sim/router_sim/router.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+; waveform viewport range
+zoom 0.000000 210150700.000000
+cursor 5330000.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 0
+; marker line index
+markerPos 42
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "Router Top"
+activeDirFile "" "/home/klin/work/uvm_work/uvm_work/02_router_lab_ral/sim/router_sim/router.fsdb"
+addSignal -h 15 /top/inf/clk
+addSignal -h 15 /top/host_inf/wr_n
+addSignal -h 15 -holdScope rd_n
+addSignal -h 15 -UNSIGNED -HEX -holdScope address[15:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope data[15:0]
+addSignal -h 15 /top/inf/reset_n
+addSignal -expanded -h 15 -UNSIGNED -HEX -holdScope din[15:0]
+addSignal -h 15 -holdScope din[15]
+addSignal -h 15 -holdScope din[14]
+addSignal -h 15 -holdScope din[13]
+addSignal -h 15 -holdScope din[12]
+addSignal -h 15 -holdScope din[11]
+addSignal -h 15 -holdScope din[10]
+addSignal -h 15 -holdScope din[9]
+addSignal -h 15 -holdScope din[8]
+addSignal -h 15 -holdScope din[7]
+addSignal -h 15 -holdScope din[6]
+addSignal -h 15 -holdScope din[5]
+addSignal -h 15 -holdScope din[4]
+addSignal -h 15 -holdScope din[3]
+addSignal -h 15 -holdScope din[2]
+addSignal -h 15 -holdScope din[1]
+addSignal -h 15 -holdScope din[0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope frame_n[15:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope valid_n[15:0]
+addSignal -expanded -h 15 -UNSIGNED -HEX -holdScope dout[15:0]
+addSignal -h 15 -holdScope dout[15]
+addSignal -h 15 -holdScope dout[14]
+addSignal -h 15 -holdScope dout[13]
+addSignal -h 15 -holdScope dout[12]
+addSignal -h 15 -holdScope dout[11]
+addSignal -h 15 -holdScope dout[10]
+addSignal -h 15 -holdScope dout[9]
+addSignal -h 15 -holdScope dout[8]
+addSignal -h 15 -holdScope dout[7]
+addSignal -h 15 -holdScope dout[6]
+addSignal -h 15 -holdScope dout[5]
+addSignal -h 15 -holdScope dout[4]
+addSignal -h 15 -holdScope dout[3]
+addSignal -h 15 -holdScope dout[2]
+addSignal -h 15 -holdScope dout[1]
+addSignal -h 15 -holdScope dout[0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope busy_n[15:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope valido_n[15:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope frameo_n[15:0]
+addGroup "G2"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+
