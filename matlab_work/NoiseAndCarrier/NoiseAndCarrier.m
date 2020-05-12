@@ -43,8 +43,10 @@ m_s=20*log(abs(fft(Q_s,1024)))/log(10);
 m_s=m_s-max(m_s);
 
 %滤波后的幅频响应
-% Fm_noise=20*log(abs(fft(Filter_noise,1024)))/log(10); Fm_noise=Fm_noise-max(Fm_noise);
-% Fm_s=20*log(abs(fft(Filter_s,1024)))/log(10); Fm_s=Fm_s-max(Fm_s);
+% Fm_noise=20*log(abs(fft(Filter_noise,1024)))/log(10); 
+% Fm_noise=Fm_noise-max(Fm_noise);
+% Fm_s=20*log(abs(fft(Filter_s,1024)))/log(10); 
+% Fm_s=Fm_s-max(Fm_s);
 
 %滤波器本身的幅频响应
 % m_hn=20*log(abs(fft(hn,1024)))/log(10); m_hn=m_hn-max(m_hn);
@@ -53,8 +55,8 @@ m_s=m_s-max(m_s);
 x_f=[0:(Fs/length(m_s)):Fs/2];
 
 %只显示正频率部分的幅频响应
-mf_noise=m_noise(1:length(x_f));
-mf_s=m_s(1:length(x_f));
+% mf_noise=m_noise(1:length(x_f));
+% mf_s=m_s(1:length(x_f));
 % Fmf_noise=Fm_noise(1:length(x_f));
 % Fmf_s=Fm_s(1:length(x_f));
 % Fm_hn=m_hn(1:length(x_f));
@@ -86,7 +88,7 @@ fclose(fid);
 %将生成的数据以二进制数据格式写入txt文件中
 fid=fopen('.\Bin_noise.txt','w');
 for i=1:length(Q_noise)
-    B_noise=dec2bin(Q_noise(i)+(Q_noise(i)<0)*2^N,N)
+    B_noise=dec2bin(Q_noise(i)+(Q_noise(i)<0)*2^N,N);
     for j=1:N
        if B_noise(j)=='1'
            tb=1;
@@ -103,7 +105,7 @@ fclose(fid);
 
 fid=fopen('.\Bin_s.txt','w');
 for i=1:length(Q_s)
-    B_s=dec2bin(Q_s(i)+(Q_s(i)<0)*2^N,N)
+    B_s=dec2bin(Q_s(i)+(Q_s(i)<0)*2^N,N);
     for j=1:N
        if B_s(j)=='1'
            tb=1;
