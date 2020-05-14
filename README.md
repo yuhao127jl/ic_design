@@ -1,7 +1,7 @@
 # IC_design
 ## Simulation Env  
-	VCS + Verdi
-	Matlab  
+	> VCS + Verdi
+	> Matlab  
   
 ## Content
 1. Basic IC Design  
