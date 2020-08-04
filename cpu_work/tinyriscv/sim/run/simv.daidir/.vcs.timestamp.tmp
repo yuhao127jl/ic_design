@@ -1,0 +1,148 @@
+2        
+0 defines.v
+0 ../../rtl/soc/defines.v
+48
++cli+4
++define+
++itf+/eda/synopsys/vcs/2012.09/linux/lib/vcsd.tab
++memcbk
++neg_tchk
++notimingcheck
++ntb_random_seed_automatic
++plusarg_save
++sdfverbose
++v2k
++vcsd
++vpi
++vpi
++vpi
+-Mamsrun=
+-Masflags=
+-Mcc=gcc
+-Mcfl= -pipe -O -I/eda/synopsys/vcs/2012.09/include
+-Mcplusplus=g++
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mldflags= -melf_i386
+-Mobjects= /eda/synopsys/vcs/2012.09/linux/lib/libvirsim.so /eda/synopsys/vcs/2012.09/linux/lib/librterrorinf.so /eda/synopsys/vcs/2012.09/linux/lib/libsnpsmalloc.so /eda/verdi/verdi3_2012/share/PLI/VCS/LINUX/pli.a
+-Mout=simv
+-Msaverestoreobj=/eda/synopsys/vcs/2012.09/linux/lib/vcs_save_restore_new.o
+-Msyslibs=/eda/synopsys/vcs/2012.09/linux/lib/ctype-stubs_32.a -ldl -lm -lm
+-Mupdate
+-Mvcsaceobjs=
+-P
+-Xcbug=0x1
+-assert
+-cm
+-debug=4
+-debug_all
+-f ../bin/rtl.flist
+-gen_obj
+-l
+-lca
+-line
+-negdelay
+-sverilog
+-timescale=1ns/1ps
+/eda/synopsys/vcs/2012.09/linux/bin/vcs1
+/eda/verdi/verdi3_2012/share/PLI/VCS/LINUX/novas.tab
+assert
+svaext
+vcs.log
+60
+sysc_uni_pwd=/home/klin/work/socwork/tinyriscv/sim/run
+XTERM_VERSION=X.Org 6.8.99.903(253)
+XTERM_SHELL=/bin/bash
+XTERM_LOCALE=en_US.utf8
+XMODIFIERS=@im=none
+XDG_SESSION_COOKIE=59591d45e98debb31f65ea6800000018-1575014479.843118-482331
+XAUTHORITY=/var/run/gdm/auth-for-klin-Q3HS3S/database
+WINDOWPATH=1
+VMR_MODE_FLAG=32
+VERA_HOME=/eda/synopsys/vera
+VCS_MX_HOME_INTERNAL=1
+VCS_LOG_FILE=vcs.log
+VCS_LCAMSG_PRINT_OFF=1
+VCS_HOME=/eda/synopsys/vcs/2012.09
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH_OVERRIDE=linux
+VCS_ARCH=linux
+VCS_AMD_PURE32=1
+USERNAME=klin
+UNAME=/bin/uname
+TOOL_HOME=/eda/synopsys/vcs/2012.09/linux
+SSH_AUTH_SOCK=/tmp/keyring-HPPrxK/socket.ssh
+SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+SNPSLMD_LICENSE_FILE=/eda/synopsys/license/synopsys.dat:/eda/synopsys/vcs/2012.09/flexlm//license.dat
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/2399,unix/unix:/tmp/.ICE-unix/2399
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+QT_IM_MODULE=xim
+QTLIB=/usr/lib/qt-3.3/lib
+QTINC=/usr/lib/qt-3.3/include
+QTDIR=/usr/lib/qt-3.3
+PT_HOME=/eda/synopsys/pt/2012.06
+OVA_UUM=0
+ORBIT_SOCKETDIR=/tmp/orbit-klin
+NOVAS_HOME=/eda/verdi/verdi3_2012
+LESSOPEN=|/usr/bin/lesspipe.sh %s
+LEDA_PATH=/eda/synopsys/leda/2008.06
+LC_ALL=C
+KDE_IS_PRELINKED=1
+KDEDIRS=/usr
+IMSETTINGS_MODULE=none
+IMSETTINGS_INTEGRATE_DESKTOP=yes
+ICC_HOME=/eda/synopsys/icc/2012.06
+HOSTNAME=localhost.localdomain
+HISTCONTROL=ignoredups
+G_BROKEN_FILENAMES=1
+GTK_RC_FILES=/etc/gtk/gtkrc:/home/klin/.gtkrc-1.2-gnome2
+GNOME_KEYRING_SOCKET=/tmp/keyring-HPPrxK/socket
+GNOME_KEYRING_PID=2390
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GDM_LANG=en_US.utf8
+GDM_KEYBOARD_LAYOUT=us
+GDMSESSION=gnome
+FM_HOME=/eda/synopsys/fm/2012.06
+DESKTOP_SESSION=gnome
+DC_HOME=/eda/synopsys/syn/2012.06
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-oGlrozxe9t,guid=e95181c40c6aabefe3814c8f00000048
+CVS_RSH=ssh
+COLORTERM=gnome-terminal
+0
+27
+1587218553 ../../rtl/core/id.v
+1587218553 ../../rtl/core/defines.v
+1587218553 ../../rtl/core/if_id.v
+1587218553 ../../rtl/core/pc_reg.v
+1587218553 ../../rtl/core/rib.v
+1587218553 ../../rtl/core/ex.v
+1587218553 ../../rtl/core/id_ex.v
+1587218553 ../../rtl/core/clint.v
+1587218553 ../../rtl/core/ctrl.v
+1587218553 ../../rtl/core/tinyriscv.v
+1587218553 ../../rtl/core/div.v
+1587218553 ../../rtl/core/csr_reg.v
+1587218553 ../../rtl/core/regs.v
+1587218553 ../../rtl/perips/rom.v
+1587218553 ../../rtl/perips/ram.v
+1587218553 ../../rtl/perips/uart_tx.v
+1587218553 ../../rtl/perips/timer.v
+1587218553 ../../rtl/perips/gpio.v
+1587218553 ../../rtl/debug/jtag_driver.v
+1587218553 ../../rtl/debug/jtag_top.v
+1587218553 ../../rtl/debug/jtag_dm.v
+1587218553 ../../rtl/soc/tinyriscv_soc_top.v
+1575023487 ../../bench/top.v
+1345792062 /eda/synopsys/vcs/2012.09/etc/sva/rec_ltl_classes_package.svp
+1575018495 ../bin/rtl.flist
+1345792037 /eda/synopsys/vcs/2012.09/linux/lib/vcsd.tab
+1350939083 /eda/verdi/verdi3_2012/share/PLI/VCS/LINUX/novas.tab
+5
+0 
+1345792714 /eda/synopsys/vcs/2012.09/linux/lib/libvirsim.so
+1345792230 /eda/synopsys/vcs/2012.09/linux/lib/librterrorinf.so
+1345792158 /eda/synopsys/vcs/2012.09/linux/lib/libsnpsmalloc.so
+1350939083 /eda/verdi/verdi3_2012/share/PLI/VCS/LINUX/pli.a

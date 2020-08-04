@@ -1,0 +1,2 @@
+Command Line: /eda/verdi/verdi3_2012/platform/LINUX/bin/Novas -2005 -sv +define+gui+ -f ../bin/rtl.flist -ssf e203.fsdb -nologo
+uname(Linux localhost.localdomain 2.6.32-71.el6.i686 #1 SMP Wed Sep 1 01:26:34 EDT 2010 i686)

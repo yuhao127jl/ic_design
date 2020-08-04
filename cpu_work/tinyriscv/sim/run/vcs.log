@@ -1,0 +1,134 @@
+Command: vcs -R -Mupdate +plusarg_save +ntb_random_seed_automatic -P /eda/verdi/verdi3_2012/share/PLI/VCS/LINUX/novas.tab \
+/eda/verdi/verdi3_2012/share/PLI/VCS/LINUX/pli.a +v2k -assert svaext -cm assert +vpi \
++neg_tchk -negdelay -lca +sdfverbose +notimingcheck -sverilog +define+ -timescale=1ns/1ps \
+-debug_all -f ../bin/rtl.flist -l vcs.log
+                         Chronologic VCS (TM)
+            Version G-2012.09 -- Fri Nov 29 18:31:43 2019
+               Copyright (c) 1991-2012 by Synopsys Inc.
+                         ALL RIGHTS RESERVED
+
+This program is proprietary and confidential information of Synopsys Inc.
+and may be used and disclosed only as authorized in a license agreement
+controlling such use and disclosure.
+
+
+Warning-[LCA_FEATURES_ENABLED] Usage warning
+  LCA features enabled by '-lca' argument on the command line.  For more 
+  information regarding list of LCA features please refer to Chapter "LCA 
+  features" in the VCS/VCS-MX Release Notes
+
+Parsing design file '../../bench/top.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../bench/top.v'.
+Parsing design file '../../rtl/soc/tinyriscv_soc_top.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/soc/tinyriscv_soc_top.v'.
+Parsing design file '../../rtl/debug/jtag_dm.v'
+Parsing design file '../../rtl/debug/jtag_top.v'
+Parsing design file '../../rtl/debug/jtag_driver.v'
+Parsing design file '../../rtl/perips/gpio.v'
+Parsing design file '../../rtl/perips/timer.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/perips/timer.v'.
+Parsing design file '../../rtl/perips/uart_tx.v'
+Parsing design file '../../rtl/perips/ram.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/perips/ram.v'.
+Parsing design file '../../rtl/perips/rom.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/perips/rom.v'.
+Parsing design file '../../rtl/core/regs.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/regs.v'.
+Parsing design file '../../rtl/core/csr_reg.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/csr_reg.v'.
+Parsing design file '../../rtl/core/div.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/div.v'.
+Parsing design file '../../rtl/core/tinyriscv.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/tinyriscv.v'.
+Parsing design file '../../rtl/core/ctrl.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/ctrl.v'.
+Parsing design file '../../rtl/core/clint.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/clint.v'.
+Parsing design file '../../rtl/core/id_ex.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/id_ex.v'.
+Parsing design file '../../rtl/core/ex.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/ex.v'.
+Parsing design file '../../rtl/core/rib.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/rib.v'.
+Parsing design file '../../rtl/core/pc_reg.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/pc_reg.v'.
+Parsing design file '../../rtl/core/if_id.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/if_id.v'.
+Parsing design file '../../rtl/core/defines.v'
+Parsing design file '../../rtl/core/id.v'
+Parsing included file '../../rtl/core/defines.v'.
+Back to file '../../rtl/core/id.v'.
+Top Level Modules:
+       tinyriscv_soc_tb
+TimeScale is 1 ns / 1 ps
+Starting vcs inline pass...
+8 modules and 0 UDP read.
+	However, due to incremental compilation, only 2 modules need to be compiled.
+recompiling module tinyriscv_soc_tb because:
+	This module or some inlined child module(s) has/have been modified.
+recompiling module jtag_top because:
+	This module or some inlined child module(s) has/have been modified.
+Both modules done.
+ld -r -m elf_i386 -o pre_vcsobj_0_1.o --whole-archive pre_vcsobj_0_1.a --no-whole-archive \
+
+if [ -x ../simv ]; then chmod -x ../simv; fi
+g++  -o ../simv -melf_i386    -Wl,-whole-archive    -Wl,-no-whole-archive  _vcsobj_1_1.o \
+5NrI_d.o 5NrIB_d.o SIM_l.o    pre_vcsobj_0_1.o  rmapats_mop.o rmapats.o       /eda/synopsys/vcs/2012.09/linux/lib/libnplex_stub.so \
+/eda/synopsys/vcs/2012.09/linux/lib/libvirsim.so /eda/synopsys/vcs/2012.09/linux/lib/librterrorinf.so \
+/eda/synopsys/vcs/2012.09/linux/lib/libsnpsmalloc.so /eda/verdi/verdi3_2012/share/PLI/VCS/LINUX/pli.a \
+/eda/synopsys/vcs/2012.09/linux/lib/libvcsnew.so /eda/synopsys/vcs/2012.09/linux/lib/libreader_common.so \
+/eda/synopsys/vcs/2012.09/linux/lib/libBA.a /eda/synopsys/vcs/2012.09/linux/lib/libuclinative.so \
+/eda/synopsys/vcs/2012.09/linux/lib/vcs_save_restore_new.o /eda/synopsys/vcs/2012.09/linux/lib/ctype-stubs_32.a \
+-ldl -lm -lm  -lc -lpthread -ldl 
+../simv up to date
+Command: ./simv +ntb_random_seed_automatic +v2k -cm_runsilent -cm assert +neg_tchk -lca +sdfverbose +notimingcheck +define+ -a vcs.log
+Chronologic VCS simulator copyright 1991-2012
+Contains Synopsys proprietary information.
+Compiler version G-2012.09; Runtime version G-2012.09;  Nov 29 18:31 2019
+NOTE: automatic random seed used: 858538291
+*Novas* Loading libsscore_vcs201209.so
+*Novas* : Enable Parallel Dumping.
+test running...
+Novas FSDB Dumper for VCS, Release Verdi3_2012.10, Linux, 10/23/2012
+Copyright (C) 1996 - 2012 by SpringSoft, Inc.
+*Novas* FSDB WARNING: The FSDB file already exists.Overwriting the FSDB file may crash the programs that are using this file.
+*Novas* : Create FSDB file 'top.fsdb'
+*Novas* : Begin traversing the scopes, layer (0).
+*Novas* : End of traversing.
+~~~~~~~~~~~~~~~~~~~ TEST_PASS ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~ #####     ##     ####    #### ~~~~~~~~~
+~~~~~~~~~ #    #   #  #   #       #     ~~~~~~~~~
+~~~~~~~~~ #    #  #    #   ####    #### ~~~~~~~~~
+~~~~~~~~~ #####   ######       #       #~~~~~~~~~
+~~~~~~~~~ #       #    #  #    #  #    #~~~~~~~~~
+~~~~~~~~~ #       #    #   ####    #### ~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ir_reg = 0x11
+dtm_req_valid = 1
+req_data = 0x4000000002
+dmstatus = 0x00400982
+shift_reg = 0x00400982
+$finish called from file "../../bench/top.v", line 511.
+$finish at simulation time            141670000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 141670000 ps
+CPU Time:      2.800 seconds;       Data structure size:   0.1Mb
+Fri Nov 29 18:32:04 2019
+CPU time: 2.679 seconds to compile + 2.219 seconds to elab + .195 seconds to link + 3.190 seconds in simulation

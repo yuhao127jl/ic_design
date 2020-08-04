@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE cov SYSTEM "ucdb_srcinfo.dtd">
+  <srcinfo name="/home/klin/work/socwork/tinyriscv/sim/run"  >
+    <ucapi_version  major_ver="13"  minor_ver="1"  patch_str="G-2012.09"  />
+      <fileinfo name="../../rtl/soc/tinyriscv_soc_top.v"  id="3"  />
+      <fileinfo name="../../rtl/core/clint.v"  id="17"  />
+      <fileinfo name="../../rtl/perips/gpio.v"  id="7"  />
+      <fileinfo name="../../rtl/perips/ram.v"  id="10"  />
+      <fileinfo name="../../rtl/debug/jtag_top.v"  id="5"  />
+      <fileinfo name="../../rtl/perips/rom.v"  id="11"  />
+      <fileinfo name="../../rtl/perips/timer.v"  id="8"  />
+      <fileinfo name="../../rtl/perips/uart_tx.v"  id="9"  />
+      <fileinfo name="../../bench/top.v"  id="1"  />
+      <fileinfo name="../../rtl/core/div.v"  id="14"  />
+      <fileinfo name="../../rtl/core/ex.v"  id="19"  />
+      <fileinfo name="../../rtl/core/pc_reg.v"  id="21"  />
+      <fileinfo name="../../rtl/debug/jtag_dm.v"  id="4"  />
+      <fileinfo name="../../rtl/core/defines.v"  id="2"  />
+      <fileinfo name="../../rtl/core/tinyriscv.v"  id="15"  />
+      <fileinfo name="../../rtl/core/if_id.v"  id="22"  />
+      <fileinfo name="../../rtl/core/regs.v"  id="12"  />
+      <fileinfo name="../../rtl/core/csr_reg.v"  id="13"  />
+      <fileinfo name="../../rtl/debug/jtag_driver.v"  id="6"  />
+      <fileinfo name="../../rtl/core/ctrl.v"  id="16"  />
+      <fileinfo name="../../rtl/core/id_ex.v"  id="18"  />
+      <fileinfo name="../../rtl/core/rib.v"  id="20"  />
+      <fileinfo name="../../rtl/core/id.v"  id="23"  />
+      <fileinfo name="/eda/synopsys/vcs/2012.09/etc/sva/rec_ltl_classes_package.svp"  id="0"  />
+    </srcinfo>
