@@ -1,0 +1,29 @@
+//********************************************
+//
+// project file
+//
+//********************************************
++incdir+../../rtl/
++incdir+../../bench/
+
+
+//-------------------------------
+// testbench
+//-------------------------------
+../../bench/test_bench_top.v
+../../bench/wb_mast_model.v
+../../bench/wb_slv_model.v
+
+
+//-------------------------------
+// wb_conmax
+//-------------------------------
+../../rtl/wb_conmax_pri_enc.v
+../../rtl/wb_conmax_arb.v
+../../rtl/wb_conmax_rf.v
+../../rtl/wb_conmax_slave_if.v
+../../rtl/wb_conmax_top.v
+../../rtl/wb_conmax_msel.v
+../../rtl/wb_conmax_pri_dec.v
+../../rtl/wb_conmax_master_if.v
+
