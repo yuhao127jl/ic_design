@@ -1,0 +1,34 @@
+//********************************************
+//
+// project file
+//
+//********************************************
++incdir+../../rtl/
++incdir+../../bench/
+
+
+//-------------------------------
+// testbench
+//-------------------------------
+../../bench/wb_mast_model.v
+../../bench/wb_slv_model.v
+../../bench/test_bench_top.v
+//../../bench/tests.v
+
+
+//-------------------------------
+// wb_dma_ctl
+//-------------------------------
+../../rtl/wb_dma_pri_enc_sub.v
+../../rtl/wb_dma_de.v
+../../rtl/wb_dma_defines.v
+../../rtl/wb_dma_wb_if.v
+../../rtl/wb_dma_ch_rf.v
+../../rtl/wb_dma_ch_sel.v
+../../rtl/wb_dma_inc30r.v
+../../rtl/wb_dma_wb_mast.v
+../../rtl/wb_dma_ch_pri_enc.v
+../../rtl/wb_dma_top.v
+../../rtl/wb_dma_rf.v
+../../rtl/wb_dma_ch_arb.v
+../../rtl/wb_dma_wb_slv.v
