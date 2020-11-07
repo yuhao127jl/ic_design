@@ -1,13 +1,27 @@
+//*******************************************************************************
+// Project      : 
+// Module       : rs_lat.v
+// Description  :
+// Designer     :
+// Version      : 
+//********************************************************************************
 
 module rs_lat(
-input       rn,
-input       sn,
-output      q,
-output      qn
+input  wire     rn,
+input  wire     sn,
+output wire     q,
+output wire     qn
 );
 
-// nand( output , input , input)
-nand nad0(qn, rn, q);
-nand nad1(q, sn, qn);
 
+NAND2HD2X nd0(.A(rn), .B(q),  .Z(qn));
+NAND2HD2X nd1(.A(rn), .B(qn), .Z(q));
+
+
+
+//********************************************************************************
+//
+// END of Module
+//
+//********************************************************************************
 endmodule
