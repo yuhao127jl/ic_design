@@ -1,0 +1,9 @@
+# Object files
+*.o
+*.ko
+*.obj
+
+/matlab_work/001_gps_track_capture/GPSdata-DiscreteComponents-fs38_192-if9_55.bin
+/matlab_work/001_gps_track_capture/gps_data.txt
+/matlab_work/001_gps_track_capture/trackingResults.mat
+
