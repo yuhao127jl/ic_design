@@ -1,0 +1,98 @@
+"************************************************************************//
+" 设定配色方案
+"************************************************************************//
+set t_Co=256 " required
+color murphy     
+"color evening    
+
+"colorscheme default
+"colorscheme delek
+"colorscheme blue
+"colorscheme darkblue
+"colorscheme desert
+"colorscheme elflord
+"colorscheme evening
+"colorscheme koehler
+"colorscheme morning
+"colorscheme murphy
+"colorscheme pablo
+"colorscheme peachpuff
+"colorscheme ron
+"colorscheme shine
+"colorscheme slate
+"colorscheme torte
+"colorscheme zellner
+"colorscheme slate
+
+"colorscheme Tomorrow-Night-Eighties
+"colorscheme Tomorrow-Night-Eighties_Copy
+"colorscheme molokai
+"colorscheme solarized8_dark
+"colorscheme solarized8_dark_low
+
+
+"************************************************************************//
+"  cterm 表示原生vim设置, 设置为NONE表示可以自定义设置
+"  red（红），white（白），black（黑），green（绿），yellow（黄），blue（蓝），purple（紫），
+"  gray（灰），brown（棕），cyan(青色)
+"  更多高亮颜色设置, 可以:h highlight 查看manual
+"************************************************************************//
+"syntax on                   " 自动语法高亮
+set cursorline              " 高亮显示当前行
+set cursorcolumn            " 高亮显示当前列
+"highlight CursorLine   cterm=NONE ctermbg=magenta ctermfg=NONE guibg=NONE guifg=NONE
+"highlight CursorColumn cterm=NONE ctermbg=magenta ctermfg=NONE guibg=NONE guifg=NONE
+highlight CursorLine   cterm=NONE ctermbg=darkgray ctermfg=NONE guibg=NONE guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=darkgray ctermfg=NONE guibg=NONE guifg=NONE
+
+set nu
+set history=680
+set autoread
+
+set so=8
+set wildmenu
+set ruler
+set wildignore=*.o,*~,*.pyc
+set cmdheight=2
+set hid
+set backspace=eol,start,indent
+set ignorecase
+set smartcase
+set hlsearch                " 搜索时高亮显示被找到的文本
+set incsearch               " 输入搜索内容时就显示搜索结果
+set lazyredraw
+set magic
+set showmatch
+set mat=2
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+set ffs=unix,dos,mac
+
+set nobackup
+set nowb
+set noswapfile
+
+set expandtab
+set smarttab                " 为C程序提供自动缩进
+set shiftwidth=4            " (shift)+(</>)时对齐长度为 4
+set tabstop=4               " 设定 tab 长度为 4 
+set cindent                 " 使用C样式的缩进
+
+set lbr
+set tw=500
+set ai 
+set si
+set wrap
+
+
+"************************************************************************//
+" 设定字体字号
+"************************************************************************//
+set anti enc=utf-8
+set guifont=Courier_New:h13:cANSI       " 字体字号设置：h13代表字号
+"set guifont=Consolas:h13:cANSI          " 字体字号设置：h13代表字号
+"set guifont=Courier_new:h11:b:cDEFAULT
+
