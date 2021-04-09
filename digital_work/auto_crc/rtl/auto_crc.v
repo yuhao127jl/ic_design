@@ -121,9 +121,47 @@ CLKLANQHDV4 clock_gate(.Q(crc_clk), .CK(clk), .E(clk_en), .TE(1'b0));
 // automated crc
 //
 //*********************************************************************
-wire	[31:0] lsfr_in = 
+wire	[31:0] lsfr_in = !crc_en ? crc_init :
+						 
+wire	lsfr_xor	= lsfr[crc_bitnum-1] ^ data_i;
+
+wire	lsfr_pos00	= lsfr_xor & crc_poly[0];
+wire	lsfr_pos01	= lsfr_xor ^ (lsfr[0] & crc_poly[1]);
+wire	lsfr_pos02	= lsfr_xor ^ (lsfr[1] & crc_poly[2]);
+wire	lsfr_pos03	= lsfr_xor ^ (lsfr[2] & crc_poly[3]);
+wire	lsfr_pos04	= lsfr_xor ^ (lsfr[3] & crc_poly[4]);
+
+wire	lsfr_pos05	= lsfr_xor ^ (lsfr[4] & crc_poly[5]);
+wire	lsfr_pos06	= lsfr_xor ^ (lsfr[5] & crc_poly[6]);
+wire	lsfr_pos07	= lsfr_xor ^ (lsfr[6] & crc_poly[7]);
+wire	lsfr_pos08	= lsfr_xor ^ (lsfr[7] & crc_poly[8]);
+
+wire	lsfr_pos09	= lsfr_xor ^ (lsfr[8] & crc_poly[9]);
+wire	lsfr_pos10	= lsfr_xor ^ (lsfr[9] & crc_poly[10]);
+wire	lsfr_pos11	= lsfr_xor ^ (lsfr[10] & crc_poly[11]);
+wire	lsfr_pos12	= lsfr_xor ^ (lsfr[11] & crc_poly[12]);
+
+wire	lsfr_pos13	= lsfr_xor ^ (lsfr[12] & crc_poly[13]);
+wire	lsfr_pos14	= lsfr_xor ^ (lsfr[13] & crc_poly[14]);
+wire	lsfr_pos15	= lsfr_xor ^ (lsfr[14] & crc_poly[15]);
+wire	lsfr_pos16	= lsfr_xor ^ (lsfr[15] & crc_poly[16]);
+
+wire	lsfr_pos13	= lsfr_xor ^ (lsfr[12] & crc_poly[13]);
+wire	lsfr_pos14	= lsfr_xor ^ (lsfr[13] & crc_poly[14]);
+wire	lsfr_pos15	= lsfr_xor ^ (lsfr[14] & crc_poly[15]);
+wire	lsfr_pos16	= lsfr_xor ^ (lsfr[15] & crc_poly[16]);
+
+always @(posedge crc_clk or negedge rst_)
+if(!rst_)
+begin
 
 
+end
+else
+begin
+
+
+end
 
 
 
