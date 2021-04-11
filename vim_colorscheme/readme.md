@@ -12,5 +12,5 @@
 
 3. 从中选出一个配色方案，比如molokai的配色方案, 修改~/.vimrc 配置文件如下:
 
-	set t_Co=256 " required
+	set t_Co=256 " required   
 	colorscheme molokai
