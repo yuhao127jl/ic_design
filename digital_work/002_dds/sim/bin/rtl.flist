@@ -1,0 +1,21 @@
+//********************************************
+//
+// project file
+//
+//********************************************
+
++incdir+../../rtl/
++incdir+../../bench/
+
+../../rtl/sin_tbl.v
+../../rtl/cos_tbl.v
+../../rtl/icb_dec.v
+../../rtl/dds_wcfg.v
+
+../../bench/tb_dds_wcfg.v
+
+
+
+
+
+
